@@ -8,11 +8,61 @@ from zoneinfo import ZoneInfo
 
 import streamlit as st
 
-import config
-import data
-import prefetch
-from theme import html, show_help, show_warnings
-from views import desk, digest, ideas, learn, micro, regime, rotation, stock_lab
+
+def _reload_if_updated(stamp_only: bool = False) -> None:
+    """Streamlit re-runs app.py on every page load but keeps imported modules in memory. After a push, Streamlit
+    Cloud can run the new app.py against modules from the old version (an AttributeError on a function that only
+    exists in the new one). So: if any project file changed since its module was loaded, reload them all, in
+    dependency order, so old and new code never mix."""
+    import hashlib
+    import importlib
+    import sys
+
+    order = [
+        "config",
+        "snapshot",
+        "analytics",
+        "theme",
+        "data",
+        "ai",
+        "journal",
+        "progress",
+        "ideas",
+        "signal_checks",
+        "prefetch",
+        "learn_content",
+        "lessons_content",
+    ]
+    names = [n for n in order if n in sys.modules] + sorted(n for n in sys.modules if n.startswith("views."))
+
+    def digest(mod) -> str | None:
+        try:
+            return hashlib.sha1(Path(mod.__file__).read_bytes()).hexdigest()
+        except Exception:
+            return None
+
+    current = {n: digest(sys.modules[n]) for n in names}
+    if stamp_only:
+        for n in names:
+            if not hasattr(sys.modules[n], "_source_digest"):
+                sys.modules[n]._source_digest = current[n]
+        return
+    if all(getattr(sys.modules[n], "_source_digest", None) == current[n] for n in names):
+        return
+    for n in names:
+        mod = importlib.reload(sys.modules[n])
+        mod._source_digest = current[n]
+
+
+_reload_if_updated()
+
+import config  # noqa: E402
+import data  # noqa: E402
+import prefetch  # noqa: E402
+from theme import html, show_help, show_warnings  # noqa: E402
+from views import desk, digest, ideas, learn, micro, regime, rotation, stock_lab  # noqa: E402
+
+_reload_if_updated(stamp_only=True)  # remember what was just loaded, so the next run can tell if anything changed
 
 st.set_page_config(page_title="Daily Market Brief", page_icon=":material/finance_mode:", layout="wide")
 st.markdown(f"<style>{Path(__file__).with_name('style.css').read_text()}</style>", unsafe_allow_html=True)
