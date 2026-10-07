@@ -15,6 +15,7 @@ import streamlit as st
 import yfinance as yf
 
 import config
+import snapshot
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"}
 
@@ -32,30 +33,71 @@ class NoData(Exception):
         self.partial = partial
 
 
+# ---------- Yahoo: live when possible, last good copy when not ----------
+
+YAHOO_COOLDOWN = 300  # after Yahoo fails, go straight to saved copies for 5 minutes instead of waiting on retries
+_yahoo_down = {"until": 0.0}
+_stale = {"oldest": None}
+
+
+def _fresh_or_saved(name: str, args: tuple, fetch, valid=bool):
+    """Fetch live and remember it; if Yahoo fails (or is cooling down), raise NoData carrying the last good copy.
+
+    NoData is never cached, so the next page load tries Yahoo again once the cooldown has passed.
+    """
+    if time.time() >= _yahoo_down["until"]:
+        try:
+            value = fetch()
+        except LookupError:
+            value = None  # an unknown symbol or an empty answer: not an outage, but fall back if we have a copy
+        except Exception:
+            _yahoo_down["until"] = time.time() + YAHOO_COOLDOWN
+            value = None
+        if value is not None and valid(value):
+            snapshot.save(name, *args, value=value)
+            return value
+    saved = snapshot.load(name, *args)
+    if saved is None and snapshot.refresh_from_remote():
+        saved = snapshot.load(name, *args)
+    raise NoData(partial=saved)
+
+
+def _use_saved(partial):
+    """Unwrap a saved copy from NoData.partial and note its age for the 'showing saved data' banner."""
+    value, saved_at = partial
+    _stale["oldest"] = min(_stale["oldest"] or saved_at, saved_at)
+    return value
+
+
+def stale_since() -> float | None:
+    """Unix time of the oldest saved copy served since the last reset, or None if everything was live."""
+    return _stale["oldest"]
+
+
+def reset_stale() -> None:
+    _stale["oldest"] = None
+
+
 # ---------- Prices ----------
 
 
 @st.cache_data(ttl=60 * 60 * 24, show_spinner=False)
 def _top_holdings(etf: str, n: int) -> list[str]:
-    try:
-        symbols = [s.replace(".", "-") for s in yf.Ticker(etf).funds_data.top_holdings.index[:n]]
-    except Exception as e:
-        raise NoData from e
-    if not symbols:
-        raise NoData
-    return symbols
+    return _fresh_or_saved(
+        "holdings",
+        (etf, n),
+        lambda: [s.replace(".", "-") for s in _yahoo(lambda: yf.Ticker(etf).funds_data.top_holdings).index[:n]],
+    )
 
 
 def get_top_holdings(etf: str, fallback: tuple, n: int = 5) -> list[str]:
     try:
         return _top_holdings(etf, n)
-    except NoData:
-        return list(fallback)
+    except NoData as e:
+        return _use_saved(e.partial) if e.partial else list(fallback)
 
 
-@st.cache_data(ttl=60 * 15, show_spinner=False)
-def get_prices(tickers: tuple, period: str = "2y", interval: str = "1d") -> pd.DataFrame:
-    """Adjusted closes, one column per ticker."""
+def _download(tickers: tuple, period: str, interval: str) -> pd.DataFrame:
     df = yf.download(list(tickers), period=period, interval=interval, progress=False, auto_adjust=True, threads=True)[
         "Close"
     ]
@@ -63,8 +105,68 @@ def get_prices(tickers: tuple, period: str = "2y", interval: str = "1d") -> pd.D
         df = df.to_frame(tickers[0])
     df = df.dropna(how="all")
     if df.empty:
-        raise RuntimeError("Price download returned no data")  # not cached; Streamlit shows the error
+        raise RuntimeError("Price download returned no data")
+    # A rate limit can drop some tickers from an otherwise good download: fill those from the last good copy, so
+    # the saved copy never loses columns.
+    missing = [t for t in tickers if t not in df.columns or df[t].isna().all()]
+    saved = snapshot.load("prices", tickers, period, interval) if missing else None
+    if saved is not None:
+        have = [t for t in missing if t in saved[0].columns]
+        if have:
+            df = df.drop(columns=[t for t in have if t in df.columns]).join(saved[0][have], how="outer")
     return df
+
+
+PERIODS = {"1mo": 31, "3mo": 92, "6mo": 183, "1y": 366, "2y": 731, "5y": 1827, "10y": 3653}
+
+
+def _save_each(df: pd.DataFrame, period: str, interval: str) -> None:
+    """Also keep each ticker's history on its own (the longest seen), so any later combination can be rebuilt."""
+    for t in df.columns:
+        s = df[t].dropna()
+        old = snapshot.load("price1", t, interval)
+        if s.empty or (old is not None and len(old[0].dropna()) > len(s) and old[0].index.max() >= s.index.max()):
+            continue
+        if old is not None:  # keep older history the new window doesn't cover
+            s = s.combine_first(old[0])
+        snapshot.save("price1", t, interval, value=s)
+
+
+def _rebuild_from_pieces(tickers: tuple, period: str, interval: str):
+    """(frame, oldest saved_at) assembled from per-ticker copies, trimmed to the period; None if any ticker is missing."""
+    cols, oldest = {}, None
+    for t in tickers:
+        got = snapshot.load("price1", t, interval)
+        if got is None:
+            return None
+        cols[t], oldest = got[0], min(oldest or got[1], got[1])
+    df = pd.DataFrame(cols).sort_index()
+    if period in PERIODS and not df.empty:
+        df = df[df.index >= df.index.max() - pd.Timedelta(days=PERIODS[period])]
+    return df.dropna(how="all"), oldest
+
+
+@st.cache_data(ttl=60 * 15, show_spinner=False)
+def _prices(tickers: tuple, period: str, interval: str) -> pd.DataFrame:
+    def live():
+        df = _yahoo(lambda: _download(tickers, period, interval))
+        _save_each(df, period, interval)
+        return df
+
+    return _fresh_or_saved("prices", (tickers, period, interval), live, valid=lambda df: not df.empty)
+
+
+def get_prices(tickers: tuple, period: str = "2y", interval: str = "1d") -> pd.DataFrame:
+    """Adjusted closes, one column per ticker. Live from Yahoo, or the last good copy if Yahoo isn't answering."""
+    try:
+        return _prices(tickers, period, interval)
+    except NoData as e:
+        saved = e.partial or _rebuild_from_pieces(tickers, period, interval)
+        if saved is None and snapshot.refresh_from_remote():
+            saved = _rebuild_from_pieces(tickers, period, interval)
+        if saved is None:
+            raise RuntimeError("Price download returned no data") from None
+        return _use_saved(saved)
 
 
 def pct_change(series: pd.Series, days: int) -> float | None:
@@ -278,11 +380,11 @@ def _info_once(ticker: str) -> dict:
 
 @st.cache_data(ttl=60 * 60 * 6, show_spinner=False)
 def _info(ticker: str) -> dict:
-    try:
-        info = _yahoo(lambda: _info_once(ticker))
-    except Exception as e:
-        raise NoData from e  # don't remember the failure
-    return _sanitize({k: info.get(k) for k in INFO_FIELDS})
+    return _fresh_or_saved(
+        "info",
+        (ticker,),
+        lambda: _sanitize({k: v for k, v in _yahoo(lambda: _info_once(ticker)).items() if k in INFO_FIELDS}),
+    )
 
 
 def _sanitize(info: dict) -> dict:
@@ -297,52 +399,52 @@ def _sanitize(info: dict) -> dict:
 def get_info(ticker: str) -> dict:
     try:
         return _info(ticker)
-    except NoData:
-        return {}
+    except NoData as e:
+        return _use_saved(e.partial) if e.partial else {}
 
 
 def get_infos(tickers: list[str]) -> dict[str, dict]:
-    with ThreadPoolExecutor(max_workers=8) as pool:
+    with ThreadPoolExecutor(max_workers=4) as pool:  # gentle on Yahoo, which throttles bursts
         return dict(zip(tickers, pool.map(get_info, tickers), strict=True))
 
 
 # ---------- Event context for price moves ----------
 
 
+def _earnings_once(ticker: str) -> pd.DataFrame:
+    df = yf.Ticker(ticker).get_earnings_dates(limit=24)
+    df.index = df.index.tz_localize(None)
+    return df
+
+
 @st.cache_data(ttl=60 * 60 * 12, show_spinner=False)
 def _earnings(ticker: str) -> pd.DataFrame:
-    try:
-        df = yf.Ticker(ticker).get_earnings_dates(limit=24)
-        df.index = df.index.tz_localize(None)
-    except Exception as e:
-        raise NoData from e
-    return df
+    return _fresh_or_saved("earnings", (ticker,), lambda: _earnings_once(ticker), valid=lambda df: df is not None)
 
 
 def get_earnings(ticker: str) -> pd.DataFrame | None:
     try:
         return _earnings(ticker)
-    except NoData:
-        return None
+    except NoData as e:
+        return _use_saved(e.partial) if e.partial else None
+
+
+def _volume_once(ticker: str) -> pd.Series:
+    v = yf.Ticker(ticker).history(period="5y", auto_adjust=True)["Volume"]
+    v.index = v.index.tz_localize(None).normalize()
+    return v
 
 
 @st.cache_data(ttl=60 * 60 * 6, show_spinner=False)
 def _volume(ticker: str) -> pd.Series:
-    try:
-        v = yf.Ticker(ticker).history(period="5y", auto_adjust=True)["Volume"]
-    except Exception as e:
-        raise NoData from e
-    if v.empty:
-        raise NoData
-    v.index = v.index.tz_localize(None).normalize()
-    return v
+    return _fresh_or_saved("volume", (ticker,), lambda: _volume_once(ticker), valid=lambda v: not v.empty)
 
 
 def get_volume(ticker: str) -> pd.Series:
     try:
         return _volume(ticker)
-    except NoData:
-        return pd.Series(dtype=float)
+    except NoData as e:
+        return _use_saved(e.partial) if e.partial else pd.Series(dtype=float)
 
 
 _LISTICLE = re.compile(
@@ -443,46 +545,40 @@ def _sector_once(key: str) -> dict:
 
 @st.cache_data(ttl=60 * 60 * 12, show_spinner=False)
 def _sector(key: str) -> dict:
-    try:
-        out = _yahoo(lambda: _sector_once(key))
-    except Exception as e:
-        raise NoData from e
-    if not out["industries"]:
-        raise NoData
-    return out
+    return _fresh_or_saved("sector", (key,), lambda: _yahoo(lambda: _sector_once(key)), valid=lambda o: o["industries"])
 
 
 def get_sector(key: str) -> dict | None:
     """Sector overview plus its industries: [{key, name, symbol, market weight}]."""
     try:
         return _sector(key)
-    except NoData:
-        return None
+    except NoData as e:
+        return _use_saved(e.partial) if e.partial else None
+
+
+def _industry_once(key: str) -> dict:
+    ind = yf.Industry(key)
+    return {
+        "overview": ind.overview or {},
+        "top_companies": _records(ind.top_companies),
+        "top_performing": _records(ind.top_performing_companies),
+        "top_growth": _records(ind.top_growth_companies),
+    }
 
 
 @st.cache_data(ttl=60 * 60 * 12, show_spinner=False)
 def _industry(key: str) -> dict:
-    try:
-        ind = yf.Industry(key)
-        out = {
-            "overview": ind.overview or {},
-            "top_companies": _records(ind.top_companies),
-            "top_performing": _records(ind.top_performing_companies),
-            "top_growth": _records(ind.top_growth_companies),
-        }
-    except Exception as e:
-        raise NoData from e
-    if not out["top_companies"]:
-        raise NoData
-    return out
+    return _fresh_or_saved(
+        "industry", (key,), lambda: _yahoo(lambda: _industry_once(key)), valid=lambda o: o["top_companies"]
+    )
 
 
 def get_industry(key: str) -> dict | None:
     """Industry overview, largest companies (with share of the industry), top performers and fastest growers."""
     try:
         return _industry(key)
-    except NoData:
-        return None
+    except NoData as e:
+        return _use_saved(e.partial) if e.partial else None
 
 
 # ---------- Macro ----------

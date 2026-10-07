@@ -1,0 +1,37 @@
+# Saves fresh market data for the live site. Yahoo Finance often blocks shared cloud servers (like Streamlit's), but it
+# answers GitHub's. This job renders the app's main views here, saving every Yahoo response, and publishes the bundle
+# as the "data-snapshot" release asset. When the live site can't reach Yahoo, it serves this saved data instead,
+# labelled with its time. Needs no secrets.
+name: Data snapshot
+
+on:
+  schedule:
+    - cron: "40 13-21 * * 1-5" # hourly on weekdays, 9:40am-5:40pm EDT (8:40am-4:40pm EST), while markets move
+    - cron: "30 11 * * *" # every morning, right after the daily picks
+  workflow_dispatch: # "Run workflow" button for a manual refresh
+
+permissions:
+  contents: write # to publish the release asset
+
+concurrency:
+  group: snapshot
+  cancel-in-progress: true # a newer run makes an older one pointless
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --no-dev
+      - name: Save the app's market data
+        run: uv run python scripts/build_snapshot.py snapshot.tar.gz
+      - name: Publish it
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view data-snapshot >/dev/null 2>&1 || gh release create data-snapshot \
+            --title "Data snapshot" --latest=false \
+            --notes "Saved market data the live site uses when Yahoo Finance blocks its server. Updated automatically; not a software release."
+          gh release upload data-snapshot snapshot.tar.gz --clobber

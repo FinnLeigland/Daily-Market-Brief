@@ -116,14 +116,17 @@ Without uv: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt 
 - **Anything else the app saves while running** stays on the server's disk only and resets when a hosted app
   restarts; keep personal records on a local copy.
 - **Dates and times** are always New York time, whatever time zone the server runs in.
-- **Yahoo Finance sometimes rate-limits shared cloud servers.** Lookups retry automatically, failures are never
-  cached, and a tab that shows "couldn't load" recovers on the next refresh.
+- **When Yahoo Finance blocks the server:** Yahoo often refuses shared cloud servers like Streamlit's. Every
+  successful Yahoo response is saved, and `.github/workflows/snapshot.yml` refreshes a bundle of the app's data on
+  GitHub's servers every hour on weekdays and publishes it as the `data-snapshot` release. When the live site can't
+  reach Yahoo, it serves that saved data, shows a note with the time it was saved, and switches back to live data
+  as soon as Yahoo answers.
 - `.github/workflows/tests.yml` runs the linter and the test suite on every push.
 
 ## Development
 
 ```bash
-uv run pytest            # 154 offline tests: equity screen, backtest and grading, valuation, risk, move detection, regimes, recession model, backtests (incl. look-ahead checks), alert rules, AI parsing, industry concentration, outage handling
+uv run pytest            # 160 offline tests: equity screen, backtest and grading, valuation, risk, move detection, regimes, recession model, backtests (incl. look-ahead checks), alert rules, AI parsing, industry concentration, outage handling
 uv run ruff check .      # lint
 uv run ruff format .     # format
 uv add <package>         # add a dependency (updates pyproject.toml and uv.lock)
@@ -148,6 +151,7 @@ checks for updates weekly once the repo is on GitHub, with `yfinance` in its own
 - `learn_content.py`: field guide lessons
 - `analytics.py`: all finance and statistics (no UI code, so it's testable on its own)
 - `data.py`: data fetching and caching
+- `snapshot.py`, `scripts/build_snapshot.py`: saved copies of Yahoo data, and the hourly bundle that backs up the live site
 - `config.py`: tickers, sectors, presets, glossary
 - `theme.py`, `style.css`: dark theme and chart styling
 - `tests/`: pytest suite (runs offline on synthetic data)
