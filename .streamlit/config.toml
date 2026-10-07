@@ -1,0 +1,17 @@
+[theme]
+base = "dark"
+primaryColor = "#3987e5"
+backgroundColor = "#0e0e0d"
+secondaryBackgroundColor = "#201f1d"
+textColor = "#f2f1ec"
+font = "Geist:https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap, sans-serif"
+headingFont = "'Source Serif 4':https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500..600&display=swap, serif"
+borderColor = "#2b2a27"
+baseRadius = "10px"
+linkColor = "#6da7ec"
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

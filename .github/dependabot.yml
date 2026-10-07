@@ -1,0 +1,28 @@
+# Dependabot opens pull requests when dependencies have new versions.
+# It runs on GitHub once this repo is pushed there; nothing happens locally.
+version: 2
+updates:
+  - package-ecosystem: "uv"   # reads pyproject.toml + uv.lock
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      # yfinance scrapes Yahoo and breaks more often than anything else, so it gets its own PR to test on its own.
+      data-sources:
+        patterns: ["yfinance"]
+      # Bundle routine minor/patch bumps of everything else into one weekly PR.
+      everything-else:
+        patterns: ["*"]
+        exclude-patterns: ["yfinance"]
+        update-types: ["minor", "patch"]
+    commit-message:
+      prefix: "deps"
+
+  - package-ecosystem: "github-actions"   # keeps the workflow's actions (checkout, setup-uv) current
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "ci"

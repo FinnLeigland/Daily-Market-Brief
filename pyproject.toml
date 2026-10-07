@@ -1,0 +1,55 @@
+[project]
+name = "market-digest"
+version = "0.1.0"
+description = "Daily Market Brief: a macro & equity research dashboard."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=1.11",
+    "feedparser>=6.0",
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "plotly>=6.0",
+    "requests>=2.32",
+    "scikit-learn>=1.5",
+    "streamlit>=1.65",  # lazy tabs (st.tabs on_change / .open) need a recent release
+    "watchdog>=4.0",
+    "yfinance>=0.2.50",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.8",
+]
+
+# This is an app, not a library: uv manages the environment but doesn't build/install the project itself.
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = [".cache"]
+
+[tool.ruff.lint]
+# pycodestyle errors, pyflakes, import sorting, bugbear, pyupgrade, simplify
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = [
+    "E501",    # long HTML/f-string lines are deliberate; the formatter handles code
+    "B008",    # function calls in defaults are fine for Streamlit helpers
+    "SIM108",  # ternaries aren't always clearer
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["ai", "analytics", "config", "data", "journal", "learn_content", "theme", "views"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore:.*ScriptRunContext.*",
+    "ignore:No runtime found.*",
+]
