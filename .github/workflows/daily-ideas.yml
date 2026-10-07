@@ -1,0 +1,37 @@
+# Makes the Equity Screen's picks every morning and commits ideas.json, so the published app keeps its full track
+# record (a hosted app's disk is wiped on every restart or redeploy). Needs no secrets.
+name: Daily Equity Screen picks
+
+on:
+  schedule:
+    - cron: "15 11 * * *" # 11:15 UTC = 7:15am EDT / 6:15am EST, before most people open the dashboard
+  workflow_dispatch: # "Run workflow" button for a manual run
+
+permissions:
+  contents: write # to commit ideas.json
+
+concurrency:
+  group: daily-ideas
+  cancel-in-progress: false
+
+jobs:
+  picks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --no-dev
+      - name: Make today's picks
+        run: uv run python scripts/daily_ideas.py
+      - name: Commit ideas.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add ideas.json
+          if git diff --cached --quiet; then
+            echo "No new picks to commit."
+          else
+            git commit -m "Equity Screen picks for $(TZ=America/New_York date +%F)"
+            git push
+          fi

@@ -1,0 +1,37 @@
+# Runs the alert check every weekday after the US market close and pushes any alerts to your phone/email.
+#
+# Repo secrets to add (Settings → Secrets and variables → Actions):
+#   WATCHLIST_JSON     copied from the app (the minimal list of tickers and levels; no notes or theses)
+#   NTFY_TOPIC         your private ntfy topic name, and/or SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, ALERT_EMAIL_TO
+#   ANTHROPIC_API_KEY  optional: adds a one-line "why it moved" to unusual moves
+# Optional repo variable: DASHBOARD_URL (tapping the notification opens the dashboard)
+name: Daily alerts
+
+on:
+  schedule:
+    - cron: "30 21 * * 1-5" # 21:30 UTC = 4:30pm EST / 5:30pm EDT, after the 4pm close
+  workflow_dispatch: # "Run workflow" button for a manual check
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --no-dev
+      - name: Check watchlist and positions
+        run: uv run python scripts/daily_check.py
+        env:
+          WATCHLIST_JSON: ${{ secrets.WATCHLIST_JSON }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DASHBOARD_URL: ${{ vars.DASHBOARD_URL }}

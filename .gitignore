@@ -1,0 +1,11 @@
+.cache/
+.pytest_cache/
+.ruff_cache/
+.streamlit/secrets.toml
+.venv/
+__pycache__/
+dist/
+journal.json
+progress.json
+ideas.tmp
+.claude/
