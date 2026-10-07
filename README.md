@@ -116,8 +116,8 @@ Without uv: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt 
 - **Anything else the app saves while running** stays on the server's disk only and resets when a hosted app
   restarts; keep personal records on a local copy.
 - **Dates and times** are always New York time, whatever time zone the server runs in.
-- **When Yahoo Finance blocks the server:** Yahoo often refuses shared cloud servers like Streamlit's. Every
-  successful Yahoo response is saved, and `.github/workflows/snapshot.yml` refreshes a bundle of the app's data on
+- **When Yahoo Finance blocks the server:** Yahoo (and sometimes FRED) refuses shared cloud servers like Streamlit's. Every
+  successful Yahoo and FRED response is saved, and `.github/workflows/snapshot.yml` refreshes a bundle of the app's data on
   GitHub's servers every hour on weekdays and publishes it as the `data-snapshot` release. When the live site can't
   reach Yahoo, it serves that saved data, shows a note with the time it was saved, and switches back to live data
   as soon as Yahoo answers.
@@ -126,7 +126,7 @@ Without uv: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt 
 ## Development
 
 ```bash
-uv run pytest            # 160 offline tests: equity screen, backtest and grading, valuation, risk, move detection, regimes, recession model, backtests (incl. look-ahead checks), alert rules, AI parsing, industry concentration, outage handling
+uv run pytest            # 161 offline tests: equity screen, backtest and grading, valuation, risk, move detection, regimes, recession model, backtests (incl. look-ahead checks), alert rules, AI parsing, industry concentration, outage handling
 uv run ruff check .      # lint
 uv run ruff format .     # format
 uv add <package>         # add a dependency (updates pyproject.toml and uv.lock)

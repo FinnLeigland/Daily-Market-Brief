@@ -238,3 +238,24 @@ def test_any_combination_rebuilds_from_per_stock_copies(monkeypatch):
     with pytest.raises(RuntimeError):  # a ticker never saved can't be invented
         data.get_prices(("AAA", "ZZZ"), "6mo", "1d")
     data._prices.clear()
+
+
+def test_fred_falls_back_to_saved_series_and_is_not_cached(monkeypatch):
+    s = pd.Series([4.1, 4.2], index=pd.to_datetime(["2026-08-01", "2026-09-01"]))
+    monkeypatch.setattr(data, "_fred_live", lambda i: s)
+    data._fred.clear()
+    assert data.get_fred(("UNRATE",))["UNRATE"].tolist() == [4.1, 4.2] and data.stale_since() is None
+
+    calls = {"n": 0}
+
+    def down(i):
+        calls["n"] += 1
+        raise requests.Timeout("FRED timed out")
+
+    monkeypatch.setattr(data, "_fred_live", down)
+    data._fred.clear()
+    got = data.get_fred(("UNRATE",))
+    assert got["UNRATE"].tolist() == [4.1, 4.2] and data.stale_since() is not None
+    data.get_fred(("UNRATE",))  # not cached (so live is retried later), and the cooldown skips the slow timeout
+    assert calls["n"] == 1
+    data._fred.clear()

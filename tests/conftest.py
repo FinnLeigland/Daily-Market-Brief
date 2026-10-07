@@ -10,6 +10,7 @@ def _isolated_yahoo_state(tmp_path, monkeypatch):
     monkeypatch.setattr(snapshot, "DIR", tmp_path / "snapshot")
     monkeypatch.setattr(snapshot, "URL", "")
     monkeypatch.setattr(data, "_yahoo_down", {"until": 0.0})
+    monkeypatch.setattr(data, "_fred_down", {"until": 0.0})
     data.reset_stale()
     yield
     data.reset_stale()

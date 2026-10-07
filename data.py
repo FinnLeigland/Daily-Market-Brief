@@ -584,9 +584,13 @@ def get_industry(key: str) -> dict | None:
 # ---------- Macro ----------
 
 
-def _fred_one(series_id: str) -> pd.Series:
+FRED_COOLDOWN = 300  # after FRED fails, use saved copies for 5 minutes instead of waiting on timeouts
+_fred_down = {"until": 0.0}
+
+
+def _fred_live(series_id: str) -> pd.Series:
     url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
-    resp = requests.get(url, headers=HEADERS, timeout=15)
+    resp = requests.get(url, headers=HEADERS, timeout=10)
     resp.raise_for_status()
     df = pd.read_csv(io.StringIO(resp.text))
     df.columns = ["date", series_id]
@@ -594,22 +598,45 @@ def _fred_one(series_id: str) -> pd.Series:
     return pd.to_numeric(df.set_index("date")[series_id], errors="coerce").dropna()
 
 
+def _fred_one(series_id: str):
+    """(series, saved_at): saved_at is None when the series came live, else the time of the saved copy used."""
+    if time.time() >= _fred_down["until"]:
+        try:
+            s = _fred_live(series_id)
+            if not s.empty:
+                snapshot.save("fred", series_id, value=s)
+                return s, None
+        except Exception:
+            _fred_down["until"] = time.time() + FRED_COOLDOWN
+    saved = snapshot.load("fred", series_id)
+    if saved is None and snapshot.refresh_from_remote():
+        saved = snapshot.load("fred", series_id)
+    return saved if saved is not None else (None, None)
+
+
 @st.cache_data(ttl=60 * 60 * 6, show_spinner=False)
 def _fred(ids: tuple) -> dict[str, pd.Series]:
     with ThreadPoolExecutor(max_workers=len(ids)) as pool:
-        series = list(pool.map(lambda i: _safe(_fred_one, i), ids))
-    out = {i: s for i, s in zip(ids, series, strict=True) if s is not None and not s.empty}
-    if len(out) < len(ids):
-        raise NoData(partial=out)
+        results = list(pool.map(_fred_one, ids))
+    out = {i: s for i, (s, _) in zip(ids, results, strict=True) if s is not None and not s.empty}
+    saved_at = [t for s, t in results if s is not None and t is not None]
+    if len(out) < len(ids) or saved_at:  # incomplete or partly saved: don't cache, so live data is retried later
+        raise NoData(partial=(out, min(saved_at) if saved_at else None))
     return out
 
 
 def get_fred(ids: tuple) -> dict[str, pd.Series]:
-    """FRED series by id. Only a complete set is cached; a partial one is returned uncached and retried next load."""
+    """FRED series by id: live when FRED answers, the last good copy when it doesn't. Only a complete live set is
+    cached; anything else is returned uncached and retried on the next load."""
     try:
         return _fred(ids)
     except NoData as e:
-        return e.partial or {}
+        if not e.partial:
+            return {}
+        out, saved_at = e.partial
+        if saved_at is not None:
+            _use_saved((out, saved_at))
+        return out
 
 
 def _safe(fn, *args):
