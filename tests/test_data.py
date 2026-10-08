@@ -1,5 +1,7 @@
 """Data-layer resilience: a failed fetch must never be cached as 'no data'."""
 
+import os
+import time
 import types
 
 import numpy as np
@@ -259,3 +261,38 @@ def test_fred_falls_back_to_saved_series_and_is_not_cached(monkeypatch):
     data.get_fred(("UNRATE",))  # not cached (so live is retried later), and the cooldown skips the slow timeout
     assert calls["n"] == 1
     data._fred.clear()
+
+
+def test_newer_published_copy_replaces_an_old_local_one(monkeypatch):
+    """With Yahoo blocked, an existing but old local copy must not hide the fresher one GitHub publishes hourly."""
+    import io
+    import tarfile
+
+    old = pd.DataFrame({"AAA": [1.0]}, index=pd.to_datetime(["2026-10-07"]))
+    snapshot.save("prices", ("AAA",), "1mo", "1d", value=old)
+    local = next(snapshot.DIR.glob("*.parquet"))
+    os.utime(local, (time.time() - 86400, time.time() - 86400))  # saved yesterday
+
+    new = pd.DataFrame({"AAA": [1.0, 2.0]}, index=pd.to_datetime(["2026-10-07", "2026-10-08"]))
+    buf, raw = io.BytesIO(), io.BytesIO()
+    new.to_parquet(raw)
+    with tarfile.open(fileobj=buf, mode="w:gz") as tar:
+        info = tarfile.TarInfo(local.name)
+        info.size, info.mtime = len(raw.getvalue()), int(time.time())
+        tar.addfile(info, io.BytesIO(raw.getvalue()))
+
+    class Resp:
+        content = buf.getvalue()
+
+        def raise_for_status(self):
+            pass
+
+    monkeypatch.setattr(snapshot, "URL", "https://example.com/snapshot.tar.gz")
+    monkeypatch.setattr(snapshot, "_last_remote", {"at": 0.0})
+    monkeypatch.setattr(snapshot.requests, "get", lambda *a, **k: Resp())
+    monkeypatch.setattr(data, "_download", lambda *a: (_ for _ in ()).throw(RuntimeError("blocked")))
+    monkeypatch.setattr(data.time, "sleep", lambda s: None)
+    data._prices.clear()
+    got = data.get_prices(("AAA",), "1mo", "1d")
+    assert got.index.max() == pd.Timestamp("2026-10-08")  # today's copy, not yesterday's
+    data._prices.clear()

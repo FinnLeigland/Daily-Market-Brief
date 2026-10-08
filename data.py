@@ -56,10 +56,8 @@ def _fresh_or_saved(name: str, args: tuple, fetch, valid=bool):
         if value is not None and valid(value):
             snapshot.save(name, *args, value=value)
             return value
-    saved = snapshot.load(name, *args)
-    if saved is None and snapshot.refresh_from_remote():
-        saved = snapshot.load(name, *args)
-    raise NoData(partial=saved)
+    snapshot.refresh_from_remote()  # pick up GitHub's newer copy if there is one (checked at most every 15 minutes)
+    raise NoData(partial=snapshot.load(name, *args))
 
 
 def _use_saved(partial):
@@ -162,8 +160,6 @@ def get_prices(tickers: tuple, period: str = "2y", interval: str = "1d") -> pd.D
         return _prices(tickers, period, interval)
     except NoData as e:
         saved = e.partial or _rebuild_from_pieces(tickers, period, interval)
-        if saved is None and snapshot.refresh_from_remote():
-            saved = _rebuild_from_pieces(tickers, period, interval)
         if saved is None:
             raise RuntimeError("Price download returned no data") from None
         return _use_saved(saved)
@@ -608,9 +604,8 @@ def _fred_one(series_id: str):
                 return s, None
         except Exception:
             _fred_down["until"] = time.time() + FRED_COOLDOWN
+    snapshot.refresh_from_remote()
     saved = snapshot.load("fred", series_id)
-    if saved is None and snapshot.refresh_from_remote():
-        saved = snapshot.load("fred", series_id)
     return saved if saved is not None else (None, None)
 
 

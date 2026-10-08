@@ -27,7 +27,7 @@ URL = os.environ.get(
     "SNAPSHOT_URL",
     "https://github.com/FinnLeigland/Daily-Market-Brief/releases/download/data-snapshot/snapshot.tar.gz",
 )
-REMOTE_EVERY = 60 * 60  # check the published bundle at most once an hour
+REMOTE_EVERY = 15 * 60  # while Yahoo is blocking, check GitHub's bundle for newer copies at most every 15 min
 _NAME = re.compile(r"^[0-9a-f]{20}\.(parquet|json)$")
 _lock = threading.Lock()
 _last_remote = {"at": 0.0}
