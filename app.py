@@ -104,8 +104,6 @@ html(f"""
 </div>
 """)
 
-stale_note = st.empty()  # filled at the end of the run, once every fetch on this page has happened
-
 if st.session_state.get("learn_open"):
     learn.render()
 else:
@@ -141,9 +139,9 @@ else:
                         "Part of this tab couldn't load right now (market data didn't arrive). Refresh in a minute."
                     )
 
-if (saved_at := data.stale_since()) is not None:
+if (saved_at := data.stale_since()) is not None:  # at the bottom, after every fetch on this page has happened
     when = datetime.fromtimestamp(saved_at, ZoneInfo("America/New_York"))
-    stale_note.info(
+    st.info(
         f"Yahoo Finance isn't responding to this server right now, so some numbers come from a copy saved "
         f"{when:%a %b} {when.day}, {when:%-I:%M %p} ET. They update on their own once Yahoo responds.",
         icon=":material/history:",

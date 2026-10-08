@@ -2,6 +2,7 @@
 
 import io
 import re
+import threading
 import time
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
@@ -60,10 +61,12 @@ def _fresh_or_saved(name: str, args: tuple, fetch, valid=bool):
     raise NoData(partial=snapshot.load(name, *args))
 
 
-def _use_saved(partial):
-    """Unwrap a saved copy from NoData.partial and note its age for the 'showing saved data' banner."""
+def _use_saved(partial, note: bool = True):
+    """Unwrap a saved copy from NoData.partial. With `note`, its age counts toward the 'showing saved data' note;
+    slow-changing reference data (ETF holdings, sector structure, earnings dates) is served quietly."""
     value, saved_at = partial
-    _stale["oldest"] = min(_stale["oldest"] or saved_at, saved_at)
+    if note:
+        _stale["oldest"] = min(_stale["oldest"] or saved_at, saved_at)
     return value
 
 
@@ -92,15 +95,98 @@ def get_top_holdings(etf: str, fallback: tuple, n: int = 5) -> list[str]:
     try:
         return _top_holdings(etf, n)
     except NoData as e:
-        return _use_saved(e.partial) if e.partial else list(fallback)
+        return _use_saved(e.partial, note=False) if e.partial else list(fallback)
+
+
+# ---------- Direct price requests (no login) ----------
+#
+# yfinance logs in to Yahoo (a cookie plus a "crumb" token) before every kind of request, and that login is what
+# shared cloud servers most often get refused on. Yahoo's chart endpoint, which serves price history, works without
+# it. So prices come from there first, with a Chrome-like connection (Yahoo rejects other TLS fingerprints), and
+# yfinance is only the backup.
+
+CHART_HOSTS = ("query1", "query2")
+_chart_local = threading.local()
+
+
+def _chart_session():
+    if not hasattr(_chart_local, "session"):
+        from curl_cffi import requests as curl_requests
+
+        _chart_local.session = curl_requests.Session(impersonate="chrome")
+    return _chart_local.session
+
+
+def _chart_one(ticker: str, period: str, interval: str, field: str = "adjclose") -> pd.Series | None:
+    """One ticker's history from the chart endpoint: adjusted closes (dividends and splits) or volume."""
+    params = {"interval": interval, "events": "div,splits", "includeAdjustedClose": "true"}
+    if period == "max":  # range=max quietly downgrades to weekly bars; an explicit date range keeps them daily
+        params.update(period1=str(-2208994789), period2=str(int(time.time()) + 86400))
+    else:
+        params["range"] = period
+    for host in CHART_HOSTS:
+        try:
+            resp = _chart_session().get(
+                f"https://{host}.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(ticker)}",
+                params=params,
+                timeout=10,
+            )
+            if resp.status_code != 200:
+                continue
+            result = (resp.json().get("chart") or {}).get("result") or []
+            if not result or not result[0].get("timestamp"):
+                return None
+            r = result[0]
+            if (r.get("meta") or {}).get("dataGranularity", interval) != interval:
+                return None  # Yahoo sent coarser bars than asked for: let yfinance handle this one
+            ind = r.get("indicators") or {}
+            if field == "volume":
+                values = (ind.get("quote") or [{}])[0].get("volume")
+            else:
+                values = (ind.get("adjclose") or [{}])[0].get("adjclose") or (ind.get("quote") or [{}])[0].get("close")
+            if not values:
+                return None
+            tz = (r.get("meta") or {}).get("exchangeTimezoneName") or "America/New_York"
+            idx = pd.to_datetime(r["timestamp"], unit="s", utc=True).tz_convert(tz).tz_localize(None).normalize()
+            out = pd.Series(pd.to_numeric(values, errors="coerce"), index=idx, name=ticker).dropna()
+            return out[~out.index.duplicated(keep="last")]
+        except Exception:
+            continue
+    return None
+
+
+# Weekly and monthly bars from the chart endpoint are labelled and adjusted differently from yfinance's, so they're
+# built from daily closes instead: the last close of each week (dated its Monday) or month (dated the 1st).
+RESAMPLE = {"1wk": "W-MON", "1mo": "MS"}
+
+
+def _chart_many(tickers: tuple, period: str, interval: str) -> pd.DataFrame:
+    fetch = "1d" if interval in RESAMPLE else interval
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        series = list(pool.map(lambda t: _chart_one(t, period, fetch), tickers))
+    got = {t: s for t, s in zip(tickers, series, strict=True) if s is not None and not s.empty}
+    if not got:
+        return pd.DataFrame()
+    df = pd.DataFrame(got).sort_index()
+    if interval in RESAMPLE:
+        df = df.resample(RESAMPLE[interval], label="left", closed="left").last().dropna(how="all")
+    return df
 
 
 def _download(tickers: tuple, period: str, interval: str) -> pd.DataFrame:
-    df = yf.download(list(tickers), period=period, interval=interval, progress=False, auto_adjust=True, threads=True)[
-        "Close"
-    ]
-    if isinstance(df, pd.Series):
-        df = df.to_frame(tickers[0])
+    df = _chart_many(tickers, period, interval)
+    rest = [t for t in tickers if t not in df.columns]
+    if rest:  # anything the direct route didn't return: try yfinance before giving up on it
+        try:
+            more = yf.download(rest, period=period, interval=interval, progress=False, auto_adjust=True, threads=True)[
+                "Close"
+            ]
+            if isinstance(more, pd.Series):
+                more = more.to_frame(rest[0])
+            df = more if df.empty else df.join(more, how="outer")
+        except Exception:
+            if df.empty:
+                raise
     df = df.dropna(how="all")
     if df.empty:
         raise RuntimeError("Price download returned no data")
@@ -422,10 +508,13 @@ def get_earnings(ticker: str) -> pd.DataFrame | None:
     try:
         return _earnings(ticker)
     except NoData as e:
-        return _use_saved(e.partial) if e.partial else None
+        return _use_saved(e.partial, note=False) if e.partial else None
 
 
 def _volume_once(ticker: str) -> pd.Series:
+    v = _chart_one(ticker, "5y", "1d", field="volume")
+    if v is not None and not v.empty:
+        return v
     v = yf.Ticker(ticker).history(period="5y", auto_adjust=True)["Volume"]
     v.index = v.index.tz_localize(None).normalize()
     return v
@@ -549,7 +638,7 @@ def get_sector(key: str) -> dict | None:
     try:
         return _sector(key)
     except NoData as e:
-        return _use_saved(e.partial) if e.partial else None
+        return _use_saved(e.partial, note=False) if e.partial else None
 
 
 def _industry_once(key: str) -> dict:
@@ -574,7 +663,7 @@ def get_industry(key: str) -> dict | None:
     try:
         return _industry(key)
     except NoData as e:
-        return _use_saved(e.partial) if e.partial else None
+        return _use_saved(e.partial, note=False) if e.partial else None
 
 
 # ---------- Macro ----------

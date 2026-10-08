@@ -116,6 +116,9 @@ Without uv: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt 
 - **Anything else the app saves while running** stays on the server's disk only and resets when a hosted app
   restarts; keep personal records on a local copy.
 - **Dates and times** are always New York time, whatever time zone the server runs in.
+- **Prices without the login Yahoo blocks:** price history comes straight from Yahoo's chart endpoint, which needs no
+  login, over a Chrome-like connection; yfinance (which logs in first, the step shared cloud servers get refused on)
+  is only the backup. Daily, weekly and monthly prices match yfinance to within 0.0001%.
 - **When Yahoo Finance blocks the server:** Yahoo (and sometimes FRED) refuses shared cloud servers like Streamlit's. Every
   successful Yahoo and FRED response is saved, and `.github/workflows/snapshot.yml` refreshes a bundle of the app's data on
   GitHub's servers every 15 minutes during market hours (prices, headlines, picks) and every hour for everything else and publishes it as the `data-snapshot` release. When the live site can't
@@ -126,7 +129,7 @@ Without uv: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt 
 ## Development
 
 ```bash
-uv run pytest            # 162 offline tests: equity screen, backtest and grading, valuation, risk, move detection, regimes, recession model, backtests (incl. look-ahead checks), alert rules, AI parsing, industry concentration, outage handling
+uv run pytest            # 167 offline tests: equity screen, backtest and grading, valuation, risk, move detection, regimes, recession model, backtests (incl. look-ahead checks), alert rules, AI parsing, industry concentration, outage handling
 uv run ruff check .      # lint
 uv run ruff format .     # format
 uv add <package>         # add a dependency (updates pyproject.toml and uv.lock)

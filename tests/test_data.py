@@ -296,3 +296,67 @@ def test_newer_published_copy_replaces_an_old_local_one(monkeypatch):
     got = data.get_prices(("AAA",), "1mo", "1d")
     assert got.index.max() == pd.Timestamp("2026-10-08")  # today's copy, not yesterday's
     data._prices.clear()
+
+
+class _FakeChart:
+    """Stands in for the curl_cffi session: returns canned chart responses and records requests."""
+
+    def __init__(self, responses):
+        self.responses, self.calls = list(responses), []
+
+    def get(self, url, params=None, timeout=None):
+        self.calls.append((url, dict(params or {})))
+        status, body = self.responses.pop(0)
+        return types.SimpleNamespace(status_code=status, json=lambda: body)
+
+
+def _chart_body(granularity="1d", closes=(100.0, 101.0)):
+    ts = [1759843800, 1759930200][: len(closes)]  # two US market-hours timestamps (Oct 7 and 8, 2025, ET)
+    return {
+        "chart": {
+            "result": [
+                {
+                    "meta": {"exchangeTimezoneName": "America/New_York", "dataGranularity": granularity},
+                    "timestamp": ts,
+                    "indicators": {"adjclose": [{"adjclose": list(closes)}], "quote": [{"volume": [10, 20]}]},
+                }
+            ]
+        }
+    }
+
+
+def test_direct_chart_parses_adjusted_closes_by_exchange_date(monkeypatch):
+    fake = _FakeChart([(200, _chart_body())])
+    monkeypatch.setattr(data, "_chart_session", lambda: fake)
+    s = data._chart_one("SPY", "2y", "1d")
+    assert s.tolist() == [100.0, 101.0]
+    assert [d.strftime("%Y-%m-%d") for d in s.index] == ["2025-10-07", "2025-10-08"]  # New York dates, no time
+    assert fake.calls[0][1]["range"] == "2y"
+
+
+def test_direct_chart_uses_explicit_dates_for_full_history(monkeypatch):
+    fake = _FakeChart([(200, _chart_body())])
+    monkeypatch.setattr(data, "_chart_session", lambda: fake)
+    data._chart_one("SPY", "max", "1d")
+    params = fake.calls[0][1]
+    assert "range" not in params and "period1" in params and "period2" in params
+
+
+def test_direct_chart_rejects_coarser_bars_than_requested(monkeypatch):
+    monkeypatch.setattr(data, "_chart_session", lambda: _FakeChart([(200, _chart_body(granularity="1wk"))]))
+    assert data._chart_one("XLC", "max", "1d") is None  # weekly bars dressed up as daily would corrupt history
+
+
+def test_direct_chart_tries_the_second_host_after_a_429(monkeypatch):
+    fake = _FakeChart([(429, {}), (200, _chart_body())])
+    monkeypatch.setattr(data, "_chart_session", lambda: fake)
+    assert data._chart_one("SPY", "2y", "1d").tolist() == [100.0, 101.0]
+    assert "query1" in fake.calls[0][0] and "query2" in fake.calls[1][0]
+
+
+def test_download_fills_what_the_direct_route_missed_from_yfinance(monkeypatch):
+    idx = pd.to_datetime(["2025-10-07", "2025-10-08"])
+    monkeypatch.setattr(data, "_chart_many", lambda t, p, i: pd.DataFrame({"SPY": [1.0, 2.0]}, index=idx))
+    monkeypatch.setattr(data.yf, "download", lambda *a, **k: pd.DataFrame({("Close", "QQQ"): [3.0, 4.0]}, index=idx))
+    df = data._download(("SPY", "QQQ"), "2y", "1d")
+    assert sorted(df.columns) == ["QQQ", "SPY"] and df["QQQ"].tolist() == [3.0, 4.0]
