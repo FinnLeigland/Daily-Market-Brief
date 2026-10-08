@@ -360,3 +360,29 @@ def test_download_fills_what_the_direct_route_missed_from_yfinance(monkeypatch):
     monkeypatch.setattr(data.yf, "download", lambda *a, **k: pd.DataFrame({("Close", "QQQ"): [3.0, 4.0]}, index=idx))
     df = data._download(("SPY", "QQQ"), "2y", "1d")
     assert sorted(df.columns) == ["QQQ", "SPY"] and df["QQQ"].tolist() == [3.0, 4.0]
+
+
+def test_a_refused_login_does_not_stop_price_requests(monkeypatch):
+    """ETF holdings need Yahoo's login, which cloud servers get refused; prices use the no-login route and must still try."""
+    monkeypatch.setattr(data.time, "sleep", lambda s: None)
+
+    class Refused:
+        def __init__(self, *a):
+            pass
+
+        @property
+        def funds_data(self):
+            raise RuntimeError("401 Invalid Crumb")
+
+    monkeypatch.setattr(data.yf, "Ticker", Refused)
+    data._top_holdings.clear()
+    assert data.get_top_holdings("XLK", ("AAPL",)) == ["AAPL"]  # login refused: fallback list
+    assert data._down["login"] > 0
+
+    idx = pd.to_datetime(["2026-10-07", "2026-10-08"])
+    monkeypatch.setattr(data, "_download", lambda *a: pd.DataFrame({"SPY": [1.0, 2.0]}, index=idx))
+    data._prices.clear()
+    assert data.get_prices(("SPY",), "2y", "1d")["SPY"].tolist() == [1.0, 2.0]  # still live
+    assert data.stale_since() is None
+    data._prices.clear()
+    data._top_holdings.clear()

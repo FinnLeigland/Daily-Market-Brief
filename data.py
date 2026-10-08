@@ -37,22 +37,24 @@ class NoData(Exception):
 # ---------- Yahoo: live when possible, last good copy when not ----------
 
 YAHOO_COOLDOWN = 300  # after Yahoo fails, go straight to saved copies for 5 minutes instead of waiting on retries
-_yahoo_down = {"until": 0.0}
+# Separate timers, so a refused login (company data, ETF holdings) never stops price requests, which use the no-login
+# chart endpoint and often still work.
+_down = {"login": 0.0, "chart": 0.0}
 _stale = {"oldest": None}
 
 
-def _fresh_or_saved(name: str, args: tuple, fetch, valid=bool):
+def _fresh_or_saved(name: str, args: tuple, fetch, valid=bool, route: str = "login"):
     """Fetch live and remember it; if Yahoo fails (or is cooling down), raise NoData carrying the last good copy.
 
     NoData is never cached, so the next page load tries Yahoo again once the cooldown has passed.
     """
-    if time.time() >= _yahoo_down["until"]:
+    if time.time() >= _down[route]:
         try:
             value = fetch()
         except LookupError:
             value = None  # an unknown symbol or an empty answer: not an outage, but fall back if we have a copy
         except Exception:
-            _yahoo_down["until"] = time.time() + YAHOO_COOLDOWN
+            _down[route] = time.time() + YAHOO_COOLDOWN
             value = None
         if value is not None and valid(value):
             snapshot.save(name, *args, value=value)
@@ -237,7 +239,7 @@ def _prices(tickers: tuple, period: str, interval: str) -> pd.DataFrame:
         _save_each(df, period, interval)
         return df
 
-    return _fresh_or_saved("prices", (tickers, period, interval), live, valid=lambda df: not df.empty)
+    return _fresh_or_saved("prices", (tickers, period, interval), live, valid=lambda df: not df.empty, route="chart")
 
 
 def get_prices(tickers: tuple, period: str = "2y", interval: str = "1d") -> pd.DataFrame:
@@ -522,7 +524,9 @@ def _volume_once(ticker: str) -> pd.Series:
 
 @st.cache_data(ttl=60 * 60 * 6, show_spinner=False)
 def _volume(ticker: str) -> pd.Series:
-    return _fresh_or_saved("volume", (ticker,), lambda: _volume_once(ticker), valid=lambda v: not v.empty)
+    return _fresh_or_saved(
+        "volume", (ticker,), lambda: _volume_once(ticker), valid=lambda v: not v.empty, route="chart"
+    )
 
 
 def get_volume(ticker: str) -> pd.Series:

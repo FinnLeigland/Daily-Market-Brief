@@ -129,7 +129,7 @@ Without uv: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt 
 ## Development
 
 ```bash
-uv run pytest            # 167 offline tests: equity screen, backtest and grading, valuation, risk, move detection, regimes, recession model, backtests (incl. look-ahead checks), alert rules, AI parsing, industry concentration, outage handling
+uv run pytest            # 168 offline tests: equity screen, backtest and grading, valuation, risk, move detection, regimes, recession model, backtests (incl. look-ahead checks), alert rules, AI parsing, industry concentration, outage handling
 uv run ruff check .      # lint
 uv run ruff format .     # format
 uv add <package>         # add a dependency (updates pyproject.toml and uv.lock)

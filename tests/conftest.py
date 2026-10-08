@@ -9,7 +9,7 @@ def _isolated_yahoo_state(tmp_path, monkeypatch):
     """Each test gets its own empty saved-copy folder, no remote bundle, and a fresh 'Yahoo is down' timer."""
     monkeypatch.setattr(snapshot, "DIR", tmp_path / "snapshot")
     monkeypatch.setattr(snapshot, "URL", "")
-    monkeypatch.setattr(data, "_yahoo_down", {"until": 0.0})
+    monkeypatch.setattr(data, "_down", {"login": 0.0, "chart": 0.0})
     monkeypatch.setattr(data, "_fred_down", {"until": 0.0})
     data.reset_stale()
     yield
