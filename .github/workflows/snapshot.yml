@@ -10,7 +10,13 @@ on:
     - cron: "*/15 13-20 * * 1-5" # quick: every 15 min on weekdays, 9am-4:45pm EDT (8am-3:45pm EST): prices, headlines, picks
     - cron: "40 13-21 * * 1-5" # full: hourly on weekdays, every tab and the common Stock Lab and Micro choices
     - cron: "30 11 * * *" # full: every morning, right after the daily picks
-  workflow_dispatch: # "Run workflow" button for a manual full refresh
+  workflow_dispatch: # "Run workflow" button for a manual refresh
+    inputs:
+      mode:
+        description: "quick (prices, headlines, picks) or full (everything)"
+        type: choice
+        options: [full, quick]
+        default: full
 
 permissions:
   contents: write # to publish the release asset
@@ -28,7 +34,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       - run: uv sync --no-dev
       - name: Save the app's market data
-        run: uv run python scripts/build_snapshot.py snapshot.tar.gz ${{ github.event.schedule == '*/15 13-20 * * 1-5' && '--quick' || '' }}
+        run: uv run python scripts/build_snapshot.py snapshot.tar.gz ${{ (github.event.schedule == '*/15 13-20 * * 1-5' || inputs.mode == 'quick') && '--quick' || '' }}
       - name: Publish it
         env:
           GH_TOKEN: ${{ github.token }}
