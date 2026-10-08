@@ -104,7 +104,7 @@ Without uv: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt 
 
 | Data | Refreshes |
 |---|---|
-| Prices and the market pulse | every 15 minutes |
+| Prices and the market pulse | every 15 minutes (from GitHub's copy when Yahoo blocks the server) |
 | Headlines | every 30 minutes |
 | Company data, macro (FRED) data | every 6 hours |
 | Sector and industry structure, signal backtests | every 12 hours |
@@ -118,7 +118,7 @@ Without uv: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt 
 - **Dates and times** are always New York time, whatever time zone the server runs in.
 - **When Yahoo Finance blocks the server:** Yahoo (and sometimes FRED) refuses shared cloud servers like Streamlit's. Every
   successful Yahoo and FRED response is saved, and `.github/workflows/snapshot.yml` refreshes a bundle of the app's data on
-  GitHub's servers every hour on weekdays and publishes it as the `data-snapshot` release. When the live site can't
+  GitHub's servers every 15 minutes during market hours (prices, headlines, picks) and every hour for everything else and publishes it as the `data-snapshot` release. When the live site can't
   reach Yahoo, it serves that saved data, shows a note with the time it was saved, and switches back to live data
   as soon as Yahoo answers.
 - `.github/workflows/tests.yml` runs the linter and the test suite on every push.

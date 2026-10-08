@@ -1,6 +1,7 @@
 """Build the saved-data bundle that keeps the live site working when Yahoo blocks its server.
 
-    uv run python scripts/build_snapshot.py snapshot.tar.gz
+    uv run python scripts/build_snapshot.py snapshot.tar.gz            # full: every tab and common choices
+    uv run python scripts/build_snapshot.py snapshot.tar.gz --quick    # just what moves intraday (about a minute)
 
 Starts from the currently published bundle (so nothing already saved is lost), renders every tab's default view plus
 the common Stock Lab and Micro choices, so each Yahoo response they need is saved, then packs everything into one
@@ -21,6 +22,8 @@ _ideas_copy = Path(tempfile.mkdtemp()) / "ideas.json"
 if (ROOT / "ideas.json").exists():
     _ideas_copy.write_text((ROOT / "ideas.json").read_text())
 os.environ["IDEAS_FILE"] = str(_ideas_copy)
+if "--quick" in sys.argv:
+    os.environ["DISABLE_PREFETCH"] = "1"
 sys.path.insert(0, str(ROOT))
 
 from streamlit.testing.v1 import AppTest  # noqa: E402
@@ -43,9 +46,18 @@ def render(tab: str, **state) -> None:
 
 
 def main() -> int:
-    out = Path(sys.argv[1] if len(sys.argv) > 1 else "snapshot.tar.gz")
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    quick = "--quick" in sys.argv
+    out = Path(args[0] if args else "snapshot.tar.gz")
     added = snapshot.refresh_from_remote(force=True)
-    print(f"Started from the published bundle: {added} files")
+    print(f"Started from the published bundle: {added} files ({'quick' if quick else 'full'} refresh)")
+
+    if quick:  # the Digest's prices and headlines, and today's picks: everything that changes during the day
+        for tab in ["Digest", "Equity Screen"]:
+            render(tab)
+        n = snapshot.bundle(out)
+        print(f"Wrote {out} with {n} files ({out.stat().st_size / 1e6:.1f} MB)")
+        return 0 if n else 1
 
     for tab in ["Digest", "Macro", "Sector Rotation", "Equity Screen"]:
         render(tab)

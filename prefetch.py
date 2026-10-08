@@ -5,6 +5,7 @@ functions (with the same arguments) the tabs use, so the work is shared, never d
 the tab simply fetches on demand as before.
 """
 
+import os
 import threading
 from contextlib import suppress
 
@@ -52,6 +53,8 @@ def _run() -> None:
 
 
 def warm(session_state) -> None:
+    if os.environ.get("DISABLE_PREFETCH") == "1":  # set by the quick data refresh, which only needs one or two tabs
+        return
     if session_state.get("_prefetched") or not _running.acquire(blocking=False):
         return
     session_state["_prefetched"] = True

@@ -1,21 +1,23 @@
 # Saves fresh market data for the live site. Yahoo Finance often blocks shared cloud servers (like Streamlit's), but it
 # answers GitHub's. This job renders the app's main views here, saving every Yahoo response, and publishes the bundle
 # as the "data-snapshot" release asset. When the live site can't reach Yahoo, it serves this saved data instead,
-# labelled with its time. Needs no secrets.
+# labelled with its time. A quick run every 15 minutes keeps intraday prices fresh; a full run every hour covers the
+# rest. Needs no secrets.
 name: Data snapshot
 
 on:
   schedule:
-    - cron: "40 13-21 * * 1-5" # hourly on weekdays, 9:40am-5:40pm EDT (8:40am-4:40pm EST), while markets move
-    - cron: "30 11 * * *" # every morning, right after the daily picks
-  workflow_dispatch: # "Run workflow" button for a manual refresh
+    - cron: "*/15 13-20 * * 1-5" # quick: every 15 min on weekdays, 9am-4:45pm EDT (8am-3:45pm EST): prices, headlines, picks
+    - cron: "40 13-21 * * 1-5" # full: hourly on weekdays, every tab and the common Stock Lab and Micro choices
+    - cron: "30 11 * * *" # full: every morning, right after the daily picks
+  workflow_dispatch: # "Run workflow" button for a manual full refresh
 
 permissions:
   contents: write # to publish the release asset
 
 concurrency:
-  group: snapshot
-  cancel-in-progress: true # a newer run makes an older one pointless
+  group: snapshot # one run at a time, so two runs never overwrite each other's upload
+  cancel-in-progress: false
 
 jobs:
   snapshot:
@@ -26,7 +28,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       - run: uv sync --no-dev
       - name: Save the app's market data
-        run: uv run python scripts/build_snapshot.py snapshot.tar.gz
+        run: uv run python scripts/build_snapshot.py snapshot.tar.gz ${{ github.event.schedule == '*/15 13-20 * * 1-5' && '--quick' || '' }}
       - name: Publish it
         env:
           GH_TOKEN: ${{ github.token }}
