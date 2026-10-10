@@ -485,6 +485,126 @@
     "invalidation": "A close above $62.62, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-10-10": [
+   {
+    "date": "2026-10-10",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "AVGO",
+    "name": "Broadcom Inc.",
+    "lean": "down",
+    "score": -0.251,
+    "conviction": "Low",
+    "price": 361.54,
+    "etf_price": 198.78,
+    "reasons": [
+     "Trading 2% below its 200-day average ($367.11)",
+     "Lagging its sector group: +5% over the past year (excluding the last month) vs. a median of +41%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +47% from here vs. a median of +14%, which cuts against the call.",
+    "invalidation": "A close above $367.11, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-10",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "ORCL",
+    "name": "Oracle Corporation",
+    "lean": "down",
+    "score": -0.329,
+    "conviction": "Low",
+    "price": 141.4,
+    "etf_price": 66.6,
+    "reasons": [
+     "Lagging its sector group: -46% over the past year (excluding the last month) vs. a median of -5%",
+     "Trading 12% below its 200-day average ($160.51)",
+     "Faster growth than its group: revenue +30% year over year vs. a median of +30%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +68% from here vs. a median of +11%, which cuts against the call.",
+    "invalidation": "A close above $160.51, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-10",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "MS",
+    "name": "Morgan Stanley",
+    "lean": "up",
+    "score": 0.538,
+    "conviction": "Medium",
+    "price": 190.02,
+    "etf_price": 54.73,
+    "reasons": [
+     "Leading its sector group: +40% over the past year (excluding the last month) vs. a median of +16%",
+     "Faster growth than its group: revenue +28% year over year vs. a median of +15%",
+     "More analyst upside than its group: the average target is +18% from here vs. a median of +18%"
+    ],
+    "risk": "Trading 1% below its 200-day average ($192.90), which cuts against the call.",
+    "invalidation": "A close below $166.60, 12% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-10",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "HD",
+    "name": "The Home Depot, Inc.",
+    "lean": "down",
+    "score": -0.392,
+    "conviction": "Low",
+    "price": 290.74,
+    "etf_price": 112.85,
+    "reasons": [
+     "Lagging its sector group: -18% over the past year (excluding the last month) vs. a median of -10%",
+     "Trading 13% below its 200-day average ($333.22)",
+     "Slower growth than its group: revenue +6% year over year vs. a median of +8%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +30% from here vs. a median of +24%, which cuts against the call.",
+    "invalidation": "A close above $323.33, 11% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-10",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "PSX",
+    "name": "Phillips 66",
+    "lean": "up",
+    "score": 0.593,
+    "conviction": "Medium",
+    "price": 278.18,
+    "etf_price": 65.08,
+    "reasons": [
+     "Leading its sector group: +103% over the past year (excluding the last month) vs. a median of +50%",
+     "Trading 49% above its 200-day average ($186.09)",
+     "Faster growth than its group: revenue +53% year over year vs. a median of +48%"
+    ],
+    "risk": "Less analyst upside than its group: the average target is -8% from here vs. a median of +8%, which cuts against the call.",
+    "invalidation": "A close below $240.21, 14% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-10",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "CBRE",
+    "name": "CBRE Group, Inc.",
+    "lean": "down",
+    "score": -0.325,
+    "conviction": "Low",
+    "price": 130.8,
+    "etf_price": 41.61,
+    "reasons": [
+     "Lagging its sector group: -9% over the past year (excluding the last month) vs. a median of +14%",
+     "Trading 9% below its 200-day average ($144.37)"
+    ],
+    "risk": "More analyst upside than its group: the average target is +39% from here vs. a median of +20%, which cuts against the call.",
+    "invalidation": "A close above $144.37, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
