@@ -605,6 +605,128 @@
     "invalidation": "A close above $144.37, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-10-11": [
+   {
+    "date": "2026-10-11",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "CSCO",
+    "name": "Cisco Systems, Inc.",
+    "lean": "down",
+    "score": -0.195,
+    "conviction": "Low",
+    "price": 118.39,
+    "etf_price": 198.78,
+    "reasons": [
+     "Leading its sector group: +55% over the past year (excluding the last month) vs. a median of +41%",
+     "Slower growth than its group: revenue +18% year over year vs. a median of +40%",
+     "Trading 21% above its 200-day average ($97.95)"
+    ],
+    "risk": "21.1\u00d7 forward earnings, cheaper than the group median of 24.9\u00d7, which cuts against the call.",
+    "invalidation": "A close above $136.34, 15% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-11",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "META",
+    "name": "Meta Platforms, Inc.",
+    "lean": "down",
+    "score": -0.293,
+    "conviction": "Low",
+    "price": 718.67,
+    "etf_price": 66.6,
+    "reasons": [
+     "Lagging its sector group: -10% over the past year (excluding the last month) vs. a median of -5%",
+     "Slower growth than its group: revenue +28% year over year vs. a median of +30%",
+     "Trading 14% above its 200-day average ($629.18)"
+    ],
+    "risk": "20.8\u00d7 forward earnings, cheaper than the group median of 22.6\u00d7, which cuts against the call.",
+    "invalidation": "A close above $848.82, 18% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-11",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "MA",
+    "name": "Mastercard Incorporated",
+    "lean": "down",
+    "score": -0.505,
+    "conviction": "Medium",
+    "price": 589.14,
+    "etf_price": 54.73,
+    "reasons": [
+     "Lagging its sector group: -1% over the past year (excluding the last month) vs. a median of +16%",
+     "25.6\u00d7 forward earnings, pricier than the group median of 13.6\u00d7",
+     "Slower growth than its group: revenue +14% year over year vs. a median of +15%"
+    ],
+    "risk": "Trading 11% above its 200-day average ($530.51), which cuts against the call.",
+    "invalidation": "A close above $646.90, 10% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-11",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "MAR",
+    "name": "Marriott International, Inc.",
+    "lean": "up",
+    "score": 0.374,
+    "conviction": "Low",
+    "price": 365.88,
+    "etf_price": 112.85,
+    "reasons": [
+     "Leading its sector group: +24% over the past year (excluding the last month) vs. a median of -10%",
+     "Trading 5% above its 200-day average ($349.59)",
+     "27.8\u00d7 forward earnings, pricier than the group median of 24.4\u00d7"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +4% from here vs. a median of +24%, which cuts against the call.",
+    "invalidation": "A close below $349.59, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-11",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "XOM",
+    "name": "ExxonMobil Holdings Corporation",
+    "lean": "down",
+    "score": -0.189,
+    "conviction": "Low",
+    "price": 168.94,
+    "etf_price": 65.08,
+    "reasons": [
+     "Lagging its sector group: +49% over the past year (excluding the last month) vs. a median of +50%",
+     "Trading 13% above its 200-day average ($148.94)",
+     "Less analyst upside than its group: the average target is +3% from here vs. a median of +8%"
+    ],
+    "risk": "Slower growth than its group: revenue +44% year over year vs. a median of +48%, which cuts against the call.",
+    "invalidation": "A close above $187.94, 11% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-11",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "AMT",
+    "name": "American Tower Corporation",
+    "lean": "down",
+    "score": -0.251,
+    "conviction": "Low",
+    "price": 182.24,
+    "etf_price": 41.61,
+    "reasons": [
+     "Lagging its sector group: -4% over the past year (excluding the last month) vs. a median of +14%",
+     "Slower growth than its group: revenue +5% year over year vs. a median of +16%",
+     "Less analyst upside than its group: the average target is +18% from here vs. a median of +20%"
+    ],
+    "risk": "Trading 5% above its 200-day average ($173.23), which cuts against the call.",
+    "invalidation": "A close above $204.16, 12% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   }
   ]
  }
 }
