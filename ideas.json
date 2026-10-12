@@ -727,6 +727,127 @@
     "invalidation": "A close above $204.16, 12% from the pick (about 1.5 typical monthly moves).",
     "ai": null
    }
+  ],
+  "2026-10-12": [
+   {
+    "date": "2026-10-12",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "LRCX",
+    "name": "Lam Research Corporation",
+    "lean": "down",
+    "score": -0.117,
+    "conviction": "Low",
+    "price": 318.84,
+    "etf_price": 198.78,
+    "reasons": [
+     "Trading 14% above its 200-day average ($278.72)",
+     "Slower growth than its group: revenue +30% year over year vs. a median of +40%"
+    ],
+    "risk": "Leading its sector group: +110% over the past year (excluding the last month) vs. a median of +41%, which cuts against the call.",
+    "invalidation": "A close above $407.83, 28% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-12",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "TSM",
+    "name": "Taiwan Semiconductor Manufacturing Company Limited",
+    "lean": "up",
+    "score": 0.124,
+    "conviction": "Low",
+    "price": 453.31,
+    "etf_price": 66.6,
+    "reasons": [
+     "20.6\u00d7 forward earnings, cheaper than the group median of 22.6\u00d7",
+     "Leading its sector group: +42% over the past year (excluding the last month) vs. a median of -5%",
+     "More analyst upside than its group: the average target is +28% from here vs. a median of +11%"
+    ],
+    "risk": "Faster growth than its group: revenue +36% year over year vs. a median of +30%, which cuts against the call.",
+    "invalidation": "A close below $390.07, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-12",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "BAC",
+    "name": "Bank of America Corporation",
+    "lean": "up",
+    "score": 0.395,
+    "conviction": "Low",
+    "price": 54.32,
+    "etf_price": 54.73,
+    "reasons": [
+     "More analyst upside than its group: the average target is +23% from here vs. a median of +17%",
+     "Leading its sector group: +28% over the past year (excluding the last month) vs. a median of +16%",
+     "10.4\u00d7 forward earnings, cheaper than the group median of 13.6\u00d7"
+    ],
+    "risk": "Trading 1% below its 200-day average ($54.81), which cuts against the call.",
+    "invalidation": "A close below $49.10, 10% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-12",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "TJX",
+    "name": "The TJX Companies, Inc.",
+    "lean": "down",
+    "score": -0.271,
+    "conviction": "Low",
+    "price": 138.76,
+    "etf_price": 112.85,
+    "reasons": [
+     "Leading its sector group: -9% over the past year (excluding the last month) vs. a median of -10%",
+     "Slower growth than its group: revenue +5% year over year vs. a median of +8%",
+     "Trading 8% below its 200-day average ($151.40)"
+    ],
+    "risk": "24.0\u00d7 forward earnings, cheaper than the group median of 24.4\u00d7, which cuts against the call.",
+    "invalidation": "A close above $151.40, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-12",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "SLB",
+    "name": "SLB N.V.",
+    "lean": "down",
+    "score": -0.144,
+    "conviction": "Low",
+    "price": 48.95,
+    "etf_price": 65.08,
+    "reasons": [
+     "Slower growth than its group: revenue +5% year over year vs. a median of +48%",
+     "Trading 3% below its 200-day average ($50.35)",
+     "15.3\u00d7 forward earnings, pricier than the group median of 13.9\u00d7"
+    ],
+    "risk": "More analyst upside than its group: the average target is +28% from here vs. a median of +8%, which cuts against the call.",
+    "invalidation": "A close above $50.35, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-12",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "SPG",
+    "name": "Simon Property Group, Inc.",
+    "lean": "up",
+    "score": 0.133,
+    "conviction": "Low",
+    "price": 199.42,
+    "etf_price": 41.61,
+    "reasons": [
+     "Leading its sector group: +20% over the past year (excluding the last month) vs. a median of +14%",
+     "29.4\u00d7 forward earnings, cheaper than the group median of 40.2\u00d7",
+     "Faster growth than its group: revenue +20% year over year vs. a median of +16%"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +16% from here vs. a median of +20%, which cuts against the call.",
+    "invalidation": "A close below $183.19, 8% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   }
   ]
  }
 }
