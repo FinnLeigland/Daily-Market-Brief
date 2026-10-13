@@ -115,7 +115,7 @@ protobuf==7.36.2
     # via
     #   streamlit
     #   yfinance
-pyarrow==25.0.1
+pyarrow==26.0.0
     # via streamlit
 pycparser==3.0 ; implementation_name != 'PyPy'
     # via cffi
