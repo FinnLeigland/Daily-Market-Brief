@@ -1088,6 +1088,127 @@
     "invalidation": "A close below $121.26, 9% from the pick (about 1.5 typical monthly moves).",
     "ai": null
    }
+  ],
+  "2026-10-15": [
+   {
+    "date": "2026-10-15",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "AAPL",
+    "name": "Apple Inc.",
+    "lean": "down",
+    "score": -0.48,
+    "conviction": "Medium",
+    "price": 342.96,
+    "etf_price": 190.43,
+    "reasons": [
+     "Less analyst upside than its group: the average target is -4% from here vs. a median of +20%",
+     "Lagging its sector group: +34% over the past year (excluding the last month) vs. a median of +50%",
+     "Slower growth than its group: revenue +16% year over year vs. a median of +40%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close above $379.17, 11% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-15",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "INTC",
+    "name": "Intel Corporation",
+    "lean": "up",
+    "score": 0.548,
+    "conviction": "Medium",
+    "price": 98.12,
+    "etf_price": 63.94,
+    "reasons": [
+     "Leading its sector group: +161% over the past year (excluding the last month) vs. a median of -2%",
+     "Trading 17% above its 200-day average ($84.00)"
+    ],
+    "risk": "Slower growth than its group: revenue +25% year over year vs. a median of +30%, which cuts against the call.",
+    "invalidation": "A close below $84.00, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-15",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "WFC",
+    "name": "Wells Fargo & Company",
+    "lean": "down",
+    "score": -0.179,
+    "conviction": "Low",
+    "price": 80.9,
+    "etf_price": 54.52,
+    "reasons": [
+     "Slower growth than its group: revenue +0% year over year vs. a median of +12%",
+     "Trading 3% below its 200-day average ($83.63)",
+     "Leading its sector group: +16% over the past year (excluding the last month) vs. a median of +16%"
+    ],
+    "risk": "10.1\u00d7 forward earnings, cheaper than the group median of 13.3\u00d7, which cuts against the call.",
+    "invalidation": "A close above $83.63, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-15",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "ROST",
+    "name": "Ross Stores, Inc.",
+    "lean": "up",
+    "score": 0.933,
+    "conviction": "High",
+    "price": 230.57,
+    "etf_price": 111.5,
+    "reasons": [
+     "Leading its sector group: +47% over the past year (excluding the last month) vs. a median of -12%",
+     "Trading 5% above its 200-day average ($218.93)",
+     "Faster growth than its group: revenue +13% year over year vs. a median of +8%"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +16% from here vs. a median of +21%, which cuts against the call.",
+    "invalidation": "A close below $218.93, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-15",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "EOG",
+    "name": "EOG Resources, Inc.",
+    "lean": "up",
+    "score": 0.017,
+    "conviction": "Low",
+    "price": 154.19,
+    "etf_price": 67.63,
+    "reasons": [
+     "Faster growth than its group: revenue +59% year over year vs. a median of +48%",
+     "9.9\u00d7 forward earnings, cheaper than the group median of 14.3\u00d7",
+     "More analyst upside than its group: the average target is +7% from here vs. a median of +3%"
+    ],
+    "risk": "Lagging its sector group: +45% over the past year (excluding the last month) vs. a median of +60%, which cuts against the call.",
+    "invalidation": "A close below $134.95, 12% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-15",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "DLR",
+    "name": "Digital Realty Trust, Inc.",
+    "lean": "down",
+    "score": -0.058,
+    "conviction": "Low",
+    "price": 172.09,
+    "etf_price": 41.49,
+    "reasons": [
+     "Lagging its sector group: +7% over the past year (excluding the last month) vs. a median of +15%",
+     "Trading 4% below its 200-day average ($180.06)",
+     "62.3\u00d7 forward earnings, pricier than the group median of 40.2\u00d7"
+    ],
+    "risk": "Faster growth than its group: revenue +30% year over year vs. a median of +16%, which cuts against the call.",
+    "invalidation": "A close above $180.06, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
