@@ -55,11 +55,20 @@ def save(hist: dict) -> None:
 
 
 def _z(s: pd.Series) -> pd.Series:
-    """Standardize within the candidate group; missing values score 0 (neutral)."""
-    sd = s.std()
-    if s.notna().sum() < 2 or not sd or pd.isna(sd):
+    """Robust standardization within the candidate group: distance from the group median in units of the median
+    absolute deviation (scaled to match a standard deviation). Unlike mean and standard deviation, one extreme stock
+    can't drag the baseline, and the sign always agrees with "above/below the group median" in the reasons. Falls back
+    to the standard deviation when most values tie. Missing values score 0 (neutral)."""
+    x = s.astype(float)
+    if x.notna().sum() < 2:
         return pd.Series(0.0, index=s.index)
-    return ((s - s.mean()) / sd).clip(-2.5, 2.5).fillna(0.0)
+    med = x.median()
+    scale = 1.4826 * (x - med).abs().median()
+    if not scale or pd.isna(scale):
+        scale = x.std()
+    if not scale or pd.isna(scale):
+        return pd.Series(0.0, index=s.index)
+    return ((x - med) / scale).clip(-2.5, 2.5).fillna(0.0)
 
 
 def raw_signals(closes: pd.DataFrame, infos: dict[str, dict]) -> pd.DataFrame:
