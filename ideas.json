@@ -1209,6 +1209,128 @@
     "invalidation": "A close above $180.06, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-10-16": [
+   {
+    "date": "2026-10-16",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "MSFT",
+    "name": "Microsoft Corporation",
+    "lean": "down",
+    "score": -0.321,
+    "conviction": "Low",
+    "price": 539.44,
+    "etf_price": 189.19,
+    "reasons": [
+     "Lagging its sector group: -4% over the past year (excluding the last month) vs. a median of +47%",
+     "Less analyst upside than its group: the average target is +11% from here vs. a median of +24%",
+     "Slower growth than its group: revenue +18% year over year vs. a median of +40%"
+    ],
+    "risk": "Trading 24% above its 200-day average ($433.81), which cuts against the call.",
+    "invalidation": "A close above $615.99, 14% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-16",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "NVDA",
+    "name": "NVIDIA Corporation",
+    "lean": "up",
+    "score": 0.402,
+    "conviction": "Medium",
+    "price": 217.23,
+    "etf_price": 64.09,
+    "reasons": [
+     "Faster growth than its group: revenue +106% year over year vs. a median of +30%",
+     "More analyst upside than its group: the average target is +51% from here vs. a median of +13%",
+     "13.6\u00d7 forward earnings, cheaper than the group median of 22.8\u00d7"
+    ],
+    "risk": "Trading 7% above its 200-day average ($202.52), which cuts against the call.",
+    "invalidation": "A close below $202.52, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-16",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "BRK-B",
+    "name": "Berkshire Hathaway Inc.",
+    "lean": "down",
+    "score": -0.56,
+    "conviction": "Medium",
+    "price": 525.68,
+    "etf_price": 55.27,
+    "reasons": [
+     "Lagging its sector group: +5% over the past year (excluding the last month) vs. a median of +12%",
+     "Less analyst upside than its group: the average target is +4% from here vs. a median of +17%",
+     "23.7\u00d7 forward earnings, pricier than the group median of 13.3\u00d7"
+    ],
+    "risk": "Trading 7% above its 200-day average ($493.41), which cuts against the call.",
+    "invalidation": "A close above $558.82, 6% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-16",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "AMZN",
+    "name": "Amazon.com, Inc.",
+    "lean": "up",
+    "score": 0.741,
+    "conviction": "Medium",
+    "price": 254.76,
+    "etf_price": 113.41,
+    "reasons": [
+     "Trading 5% above its 200-day average ($242.64)",
+     "Leading its sector group: +14% over the past year (excluding the last month) vs. a median of -15%",
+     "Faster growth than its group: revenue +20% year over year vs. a median of +8%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close below $242.64, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-16",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "VLO",
+    "name": "Valero Energy Corporation",
+    "lean": "up",
+    "score": 0.97,
+    "conviction": "High",
+    "price": 444.06,
+    "etf_price": 66.56,
+    "reasons": [
+     "Leading its sector group: +154% over the past year (excluding the last month) vs. a median of +52%",
+     "Trading 64% above its 200-day average ($271.31)",
+     "9.4\u00d7 forward earnings, cheaper than the group median of 14.2\u00d7"
+    ],
+    "risk": "Less analyst upside than its group: the average target is -8% from here vs. a median of +5%, which cuts against the call.",
+    "invalidation": "A close below $371.86, 16% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-16",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "WELL",
+    "name": "Welltower Inc.",
+    "lean": "up",
+    "score": 0.923,
+    "conviction": "High",
+    "price": 234.63,
+    "etf_price": 41.99,
+    "reasons": [
+     "Leading its sector group: +41% over the past year (excluding the last month) vs. a median of +14%",
+     "Trading 9% above its 200-day average ($214.81)",
+     "Faster growth than its group: revenue +39% year over year vs. a median of +16%"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +11% from here vs. a median of +19%, which cuts against the call.",
+    "invalidation": "A close below $214.81, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
