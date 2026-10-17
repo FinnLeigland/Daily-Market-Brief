@@ -1331,6 +1331,126 @@
     "invalidation": "A close below $214.81, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-10-17": [
+   {
+    "date": "2026-10-17",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "AVGO",
+    "name": "Broadcom Inc.",
+    "lean": "down",
+    "score": -0.328,
+    "conviction": "Low",
+    "price": 328.75,
+    "etf_price": 183.47,
+    "reasons": [
+     "Trading 10% below its 200-day average ($367.06)",
+     "Lagging its sector group: -1% over the past year (excluding the last month) vs. a median of +48%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +60% from here vs. a median of +29%, which cuts against the call.",
+    "invalidation": "A close above $367.06, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-17",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "ORCL",
+    "name": "Oracle Corporation",
+    "lean": "down",
+    "score": -0.388,
+    "conviction": "Low",
+    "price": 128.23,
+    "etf_price": 62.02,
+    "reasons": [
+     "Lagging its sector group: -50% over the past year (excluding the last month) vs. a median of -2%",
+     "Trading 19% below its 200-day average ($159.03)",
+     "Faster growth than its group: revenue +30% year over year vs. a median of +30%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +85% from here vs. a median of +20%, which cuts against the call.",
+    "invalidation": "A close above $159.03, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-17",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "C",
+    "name": "Citigroup Inc.",
+    "lean": "up",
+    "score": 0.737,
+    "conviction": "Medium",
+    "price": 124.26,
+    "etf_price": 55.52,
+    "reasons": [
+     "Leading its sector group: +36% over the past year (excluding the last month) vs. a median of +11%",
+     "More analyst upside than its group: the average target is +21% from here vs. a median of +17%",
+     "9.5\u00d7 forward earnings, cheaper than the group median of 13.3\u00d7"
+    ],
+    "risk": "Slower growth than its group: revenue +8% year over year vs. a median of +10%, which cuts against the call.",
+    "invalidation": "A close below $108.32, 13% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-17",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "MCD",
+    "name": "McDonald's Corporation",
+    "lean": "down",
+    "score": -0.567,
+    "conviction": "Medium",
+    "price": 242.97,
+    "etf_price": 112.46,
+    "reasons": [
+     "Lagging its sector group: -17% over the past year (excluding the last month) vs. a median of -14%",
+     "Trading 14% below its 200-day average ($282.79)",
+     "Slower growth than its group: revenue +4% year over year vs. a median of +8%"
+    ],
+    "risk": "17.7\u00d7 forward earnings, cheaper than the group median of 24.7\u00d7, which cuts against the call.",
+    "invalidation": "A close above $263.24, 8% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-17",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "WMB",
+    "name": "The Williams Companies, Inc.",
+    "lean": "down",
+    "score": -0.891,
+    "conviction": "High",
+    "price": 71.28,
+    "etf_price": 68.24,
+    "reasons": [
+     "Lagging its sector group: +16% over the past year (excluding the last month) vs. a median of +54%",
+     "26.9\u00d7 forward earnings, pricier than the group median of 14.4\u00d7",
+     "Trading 0% above its 200-day average ($70.96)"
+    ],
+    "risk": "More analyst upside than its group: the average target is +20% from here vs. a median of +2%, which cuts against the call.",
+    "invalidation": "A close above $79.02, 11% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-17",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "EQIX",
+    "name": "Equinix, Inc.",
+    "lean": "up",
+    "score": 0.385,
+    "conviction": "Low",
+    "price": 985.98,
+    "etf_price": 42.16,
+    "reasons": [
+     "Leading its sector group: +27% over the past year (excluding the last month) vs. a median of +11%",
+     "More analyst upside than its group: the average target is +25% from here vs. a median of +18%"
+    ],
+    "risk": "53.2\u00d7 forward earnings, pricier than the group median of 39.6\u00d7, which cuts against the call.",
+    "invalidation": "A close below $877.52, 11% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   }
   ]
  }
 }
