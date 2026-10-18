@@ -1451,6 +1451,127 @@
     "invalidation": "A close below $877.52, 11% from the pick (about 1.5 typical monthly moves).",
     "ai": null
    }
+  ],
+  "2026-10-18": [
+   {
+    "date": "2026-10-18",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "CSCO",
+    "name": "Cisco Systems, Inc.",
+    "lean": "down",
+    "score": -0.194,
+    "conviction": "Low",
+    "price": 107.39,
+    "etf_price": 183.47,
+    "reasons": [
+     "Leading its sector group: +61% over the past year (excluding the last month) vs. a median of +48%",
+     "Slower growth than its group: revenue +18% year over year vs. a median of +40%",
+     "Trading 9% above its 200-day average ($98.84)"
+    ],
+    "risk": "19.1\u00d7 forward earnings, cheaper than the group median of 22.4\u00d7, which cuts against the call.",
+    "invalidation": "A close above $123.76, 15% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-18",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "META",
+    "name": "Meta Platforms, Inc.",
+    "lean": "down",
+    "score": -0.248,
+    "conviction": "Low",
+    "price": 709.33,
+    "etf_price": 62.02,
+    "reasons": [
+     "Lagging its sector group: -5% over the past year (excluding the last month) vs. a median of -2%",
+     "Less analyst upside than its group: the average target is +15% from here vs. a median of +19%",
+     "Slower growth than its group: revenue +28% year over year vs. a median of +30%"
+    ],
+    "risk": "20.5\u00d7 forward earnings, cheaper than the group median of 22.3\u00d7, which cuts against the call.",
+    "invalidation": "A close above $838.48, 18% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-18",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "AXP",
+    "name": "American Express Company",
+    "lean": "down",
+    "score": -0.467,
+    "conviction": "Medium",
+    "price": 313.59,
+    "etf_price": 55.52,
+    "reasons": [
+     "Lagging its sector group: -5% over the past year (excluding the last month) vs. a median of +11%",
+     "Trading 4% below its 200-day average ($326.86)"
+    ],
+    "risk": "More analyst upside than its group: the average target is +18% from here vs. a median of +17%, which cuts against the call.",
+    "invalidation": "A close above $326.86, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-18",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "LOW",
+    "name": "Lowe's Companies, Inc.",
+    "lean": "down",
+    "score": -0.376,
+    "conviction": "Low",
+    "price": 197.38,
+    "etf_price": 112.46,
+    "reasons": [
+     "Lagging its sector group: -18% over the past year (excluding the last month) vs. a median of -14%",
+     "Trading 13% below its 200-day average ($227.22)",
+     "Faster growth than its group: revenue +8% year over year vs. a median of +8%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +28% from here vs. a median of +18%, which cuts against the call.",
+    "invalidation": "A close above $221.12, 12% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-18",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "KMI",
+    "name": "Kinder Morgan, Inc.",
+    "lean": "down",
+    "score": -0.86,
+    "conviction": "High",
+    "price": 34.2,
+    "etf_price": 68.24,
+    "reasons": [
+     "Lagging its sector group: +18% over the past year (excluding the last month) vs. a median of +54%",
+     "22.1\u00d7 forward earnings, pricier than the group median of 14.4\u00d7",
+     "Slower growth than its group: revenue +11% year over year vs. a median of +48%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +6% from here vs. a median of +2%, which cuts against the call.",
+    "invalidation": "A close above $37.36, 9% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-18",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "PSA",
+    "name": "Public Storage",
+    "lean": "down",
+    "score": -0.411,
+    "conviction": "Medium",
+    "price": 298.31,
+    "etf_price": 42.16,
+    "reasons": [
+     "Lagging its sector group: +4% over the past year (excluding the last month) vs. a median of +11%",
+     "Less analyst upside than its group: the average target is +10% from here vs. a median of +18%",
+     "Slower growth than its group: revenue +3% year over year vs. a median of +16%"
+    ],
+    "risk": "30.0\u00d7 forward earnings, cheaper than the group median of 39.6\u00d7, which cuts against the call.",
+    "invalidation": "A close above $328.25, 10% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   }
   ]
  }
 }
