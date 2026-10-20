@@ -1693,6 +1693,127 @@
     "invalidation": "A close above $62.65, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-10-20": [
+   {
+    "date": "2026-10-20",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "MU",
+    "name": "Micron Technology, Inc.",
+    "lean": "up",
+    "score": 1.819,
+    "conviction": "High",
+    "price": 904.9,
+    "etf_price": 185.96,
+    "reasons": [
+     "Leading its sector group: +402% over the past year (excluding the last month) vs. a median of +49%",
+     "Faster growth than its group: revenue +379% year over year vs. a median of +40%",
+     "More analyst upside than its group: the average target is +72% from here vs. a median of +28%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close below $720.72, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-20",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "TSLA",
+    "name": "Tesla, Inc.",
+    "lean": "down",
+    "score": -1.005,
+    "conviction": "High",
+    "price": 368.06,
+    "etf_price": 62.96,
+    "reasons": [
+     "169.7\u00d7 forward earnings, pricier than the group median of 22.5\u00d7",
+     "Lagging its sector group: -15% over the past year (excluding the last month) vs. a median of -0%",
+     "Trading 5% below its 200-day average ($387.58)"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close above $387.58, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-20",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "MS",
+    "name": "Morgan Stanley",
+    "lean": "up",
+    "score": 0.323,
+    "conviction": "Low",
+    "price": 178.47,
+    "etf_price": 55.06,
+    "reasons": [
+     "Leading its sector group: +29% over the past year (excluding the last month) vs. a median of +14%",
+     "More analyst upside than its group: the average target is +20% from here vs. a median of +18%",
+     "13.1\u00d7 forward earnings, pricier than the group median of 13.1\u00d7"
+    ],
+    "risk": "Trading 8% below its 200-day average ($193.09), which cuts against the call.",
+    "invalidation": "A close below $156.79, 12% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-20",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "MAR",
+    "name": "Marriott International, Inc.",
+    "lean": "up",
+    "score": 0.526,
+    "conviction": "Medium",
+    "price": 390.7,
+    "etf_price": 114.46,
+    "reasons": [
+     "Leading its sector group: +32% over the past year (excluding the last month) vs. a median of -12%",
+     "Trading 11% above its 200-day average ($351.61)",
+     "29.7\u00d7 forward earnings, pricier than the group median of 25.3\u00d7"
+    ],
+    "risk": "Less analyst upside than its group: the average target is -1% from here vs. a median of +18%, which cuts against the call.",
+    "invalidation": "A close below $351.61, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-20",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "PSX",
+    "name": "Phillips 66",
+    "lean": "up",
+    "score": 0.636,
+    "conviction": "Medium",
+    "price": 290.55,
+    "etf_price": 67.8,
+    "reasons": [
+     "Leading its sector group: +119% over the past year (excluding the last month) vs. a median of +54%",
+     "Trading 52% above its 200-day average ($191.03)",
+     "9.6\u00d7 forward earnings, cheaper than the group median of 14.1\u00d7"
+    ],
+    "risk": "Less analyst upside than its group: the average target is -3% from here vs. a median of +3%, which cuts against the call.",
+    "invalidation": "A close below $250.77, 14% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-20",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "CBRE",
+    "name": "CBRE Group, Inc.",
+    "lean": "down",
+    "score": -0.314,
+    "conviction": "Low",
+    "price": 130.77,
+    "etf_price": 41.67,
+    "reasons": [
+     "Lagging its sector group: -10% over the past year (excluding the last month) vs. a median of +11%",
+     "Trading 9% below its 200-day average ($143.40)"
+    ],
+    "risk": "More analyst upside than its group: the average target is +37% from here vs. a median of +19%, which cuts against the call.",
+    "invalidation": "A close above $143.40, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
