@@ -1935,6 +1935,124 @@
     "invalidation": "A close above $205.62, 12% from the pick (about 1.5 typical monthly moves).",
     "ai": null
    }
+  ],
+  "2026-10-22": [
+   {
+    "date": "2026-10-22",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "AAPL",
+    "name": "Apple Inc.",
+    "lean": "down",
+    "score": -0.495,
+    "conviction": "Medium",
+    "price": 343.99,
+    "etf_price": 188.54,
+    "reasons": [
+     "Less analyst upside than its group: the average target is -5% from here vs. a median of +26%",
+     "Lagging its sector group: +30% over the past year (excluding the last month) vs. a median of +41%",
+     "Slower growth than its group: revenue +16% year over year vs. a median of +40%"
+    ],
+    "risk": "Trading 17% above its 200-day average ($293.23), which cuts against the call.",
+    "invalidation": "A close above $379.82, 10% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-22",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "INTC",
+    "name": "Intel Corporation",
+    "lean": "up",
+    "score": 0.564,
+    "conviction": "Medium",
+    "price": 92.96,
+    "etf_price": 64.0,
+    "reasons": [
+     "Leading its sector group: +225% over the past year (excluding the last month) vs. a median of +2%"
+    ],
+    "risk": "Slower growth than its group: revenue +25% year over year vs. a median of +30%, which cuts against the call.",
+    "invalidation": "A close below $85.36, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-22",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "BAC",
+    "name": "Bank of America Corporation",
+    "lean": "up",
+    "score": 0.034,
+    "conviction": "Low",
+    "price": 50.78,
+    "etf_price": 56.04,
+    "reasons": [
+     "More analyst upside than its group: the average target is +24% from here vs. a median of +14%",
+     "9.8\u00d7 forward earnings, cheaper than the group median of 13.4\u00d7"
+    ],
+    "risk": "Trading 7% below its 200-day average ($54.68), which cuts against the call.",
+    "invalidation": "A close below $45.99, 9% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-22",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "SBUX",
+    "name": "Starbucks Corporation",
+    "lean": "down",
+    "score": -0.037,
+    "conviction": "Low",
+    "price": 99.08,
+    "etf_price": 115.53,
+    "reasons": [
+     "Slower growth than its group: revenue -1% year over year vs. a median of +8%",
+     "Less analyst upside than its group: the average target is +12% from here vs. a median of +18%"
+    ],
+    "risk": "Leading its sector group: +15% over the past year (excluding the last month) vs. a median of -11%, which cuts against the call.",
+    "invalidation": "A close above $110.82, 12% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-22",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "SLB",
+    "name": "SLB N.V.",
+    "lean": "down",
+    "score": -0.203,
+    "conviction": "Low",
+    "price": 51.1,
+    "etf_price": 68.16,
+    "reasons": [
+     "Slower growth than its group: revenue +5% year over year vs. a median of +48%",
+     "Trading 1% above its 200-day average ($50.79)",
+     "16.2\u00d7 forward earnings, pricier than the group median of 14.0\u00d7"
+    ],
+    "risk": "More analyst upside than its group: the average target is +22% from here vs. a median of +3%, which cuts against the call.",
+    "invalidation": "A close above $59.16, 16% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-22",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "SPG",
+    "name": "Simon Property Group, Inc.",
+    "lean": "up",
+    "score": 0.302,
+    "conviction": "Low",
+    "price": 205.55,
+    "etf_price": 42.06,
+    "reasons": [
+     "Leading its sector group: +21% over the past year (excluding the last month) vs. a median of +10%",
+     "Trading 2% above its 200-day average ($201.49)",
+     "30.3\u00d7 forward earnings, cheaper than the group median of 40.9\u00d7"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +11% from here vs. a median of +19%, which cuts against the call.",
+    "invalidation": "A close below $201.49, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
