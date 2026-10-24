@@ -502,3 +502,39 @@ html { scroll-behavior: smooth; }
 .tbl.compact tr.th td { white-space: normal; line-height: 1.3; }
 .tbl.compact td.n.up { color: var(--up); } .tbl.compact td.n.down { color: var(--down); }
 .tbl-wrap { margin-bottom: 0.8rem; }
+
+/* ---------- Catalysts ---------- */
+.cat-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 1.6rem; margin-bottom: 0.4rem; }
+@media (max-width: 900px) { .cat-grid { grid-template-columns: 1fr; } }
+.cat-grid .eyebrow { margin-bottom: 0.4rem; }
+.cat-item { padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+.cat-item .t { font-family: var(--serif); font-size: 1rem; line-height: 1.35; color: var(--ink); text-decoration: none; }
+.cat-item .t:hover { text-decoration: underline; text-underline-offset: 3px; }
+.cat-item .src, .cal-row .d { color: var(--ink-3); font-size: 0.74rem; margin-top: 0.15rem; }
+.cat-item .src b { color: var(--accent); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
+.chip { font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 999px; white-space: nowrap; }
+.chip.up { background: var(--up-bg); color: var(--up); }
+.chip.down { background: var(--down-bg); color: var(--down); }
+.chip.flat { background: var(--flat-bg); color: var(--ink-2); }
+.chip.tk { border-radius: 4px; font-variant-numeric: tabular-nums; }
+.cat-item .why, .cal-row .why { color: var(--ink-2); font-size: 0.82rem; line-height: 1.45; margin-top: 0.35rem; }
+.cal-row { display: grid; grid-template-columns: 3.6rem 1fr; gap: 0.8rem; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
+.cal-row .d { display: flex; flex-direction: column; margin-top: 0; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.66rem; }
+.cal-row .d b { font-size: 0.95rem; color: var(--ink); letter-spacing: 0; text-transform: none; font-variant-numeric: tabular-nums; }
+.cal-row .ev { color: var(--ink); font-weight: 600; font-size: 0.9rem; }
+.cal-row.macro .ev { color: var(--accent); }
+.badge.pick { font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--accent-strong); color: #0e0e0d; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.3rem; vertical-align: 1px; }
+.cal-more { margin-top: 0.6rem; font-size: 0.78rem; }
+
+/* ---------- Sector scoreboard ---------- */
+.board .tbl td { padding: 0.55rem 0.7rem; }
+.board .tbl td.n { text-align: right; font-variant-numeric: tabular-nums; }
+.board .tbl tr.th td.n { text-align: right; }
+.board .tbl td.heat { color: var(--ink); }
+.board .tbl td.rk { color: var(--ink-3); width: 2rem; }
+.board .etf { color: var(--ink-3); font-size: 0.72rem; margin-left: 0.3rem; }
+.board .tbl td.heat.p1 { background: rgb(62 196 109 / 0.08) !important; } .board .tbl td.heat.p2 { background: rgb(62 196 109 / 0.16) !important; }
+.board .tbl td.heat.p3 { background: rgb(62 196 109 / 0.24) !important; } .board .tbl td.heat.p4 { background: rgb(62 196 109 / 0.34) !important; }
+.board .tbl td.heat.n1 { background: rgb(240 106 106 / 0.08) !important; } .board .tbl td.heat.n2 { background: rgb(240 106 106 / 0.16) !important; }
+.board .tbl td.heat.n3 { background: rgb(240 106 106 / 0.24) !important; } .board .tbl td.heat.n4 { background: rgb(240 106 106 / 0.34) !important; }

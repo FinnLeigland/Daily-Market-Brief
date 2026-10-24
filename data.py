@@ -39,7 +39,7 @@ class NoData(Exception):
 YAHOO_COOLDOWN = 300  # after Yahoo fails, go straight to saved copies for 5 minutes instead of waiting on retries
 # Separate timers, so a refused login (company data, ETF holdings) never stops price requests, which use the no-login
 # chart endpoint and often still work.
-_down = {"login": 0.0, "chart": 0.0}
+_down = {"login": 0.0, "chart": 0.0, "web": 0.0}  # "web": official calendars (Fed, BLS)
 _stale = {"oldest": None}
 
 
@@ -511,6 +511,65 @@ def get_earnings(ticker: str) -> pd.DataFrame | None:
         return _earnings(ticker)
     except NoData as e:
         return _use_saved(e.partial, note=False) if e.partial else None
+
+
+def next_earnings(ticker: str, today: str) -> str | None:
+    """The next scheduled earnings date (ISO) on or after `today`, from the earnings calendar."""
+    df = get_earnings(ticker)
+    if df is None or df.empty:
+        return None
+    future = df[df.index.normalize() >= pd.Timestamp(today)]
+    if "Reported EPS" in future.columns:
+        future = future[future["Reported EPS"].isna()]
+    return future.index.min().date().isoformat() if not future.empty else None
+
+
+def next_earnings_many(tickers: list[str], today: str) -> dict[str, str | None]:
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        return dict(zip(tickers, pool.map(lambda t: next_earnings(t, today), tickers), strict=True))
+
+
+# ---------- Official economic calendars ----------
+
+FOMC_URL = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+BLS_ICS_URL = "https://www.bls.gov/schedule/news_release/bls.ics"
+
+
+def _web_text(url: str) -> str:
+    resp = _chart_session().get(url, timeout=15)
+    if resp.status_code != 200:
+        raise RuntimeError(f"HTTP {resp.status_code} for {url}")
+    return resp.text
+
+
+@st.cache_data(ttl=60 * 60 * 24, show_spinner=False)
+def _fomc() -> list[str]:
+    import catalysts
+
+    return _fresh_or_saved("fomc", (), lambda: catalysts.parse_fomc(_web_text(FOMC_URL)), route="web")
+
+
+@st.cache_data(ttl=60 * 60 * 24, show_spinner=False)
+def _bls() -> list[list[str]]:
+    import catalysts
+
+    return _fresh_or_saved("bls", (), lambda: catalysts.parse_bls_ics(_web_text(BLS_ICS_URL)), route="web")
+
+
+def get_fomc_dates() -> list[str]:
+    """Fed rate-decision dates (ISO), from the Fed's own calendar."""
+    try:
+        return _fomc()
+    except NoData as e:
+        return _use_saved(e.partial, note=False) if e.partial else []
+
+
+def get_bls_calendar() -> list[list[str]]:
+    """[[ISO date, release]] for CPI, PPI, the jobs report and JOLTS, from the BLS release calendar."""
+    try:
+        return _bls()
+    except NoData as e:
+        return _use_saved(e.partial, note=False) if e.partial else []
 
 
 def _volume_once(ticker: str) -> pd.Series:
