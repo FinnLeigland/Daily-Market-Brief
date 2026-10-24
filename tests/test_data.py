@@ -386,3 +386,44 @@ def test_a_refused_login_does_not_stop_price_requests(monkeypatch):
     assert data.stale_since() is None
     data._prices.clear()
     data._top_holdings.clear()
+
+
+def _today_body(closes, adjcloses, market_price=None, market_time=None):
+    meta = {"exchangeTimezoneName": "America/New_York", "dataGranularity": "1d"}
+    if market_price is not None:
+        meta.update(regularMarketPrice=market_price, regularMarketTime=market_time)
+    return {
+        "chart": {
+            "result": [
+                {
+                    "meta": meta,
+                    "timestamp": [1791813000, 1791899400],  # 9:30am ET on Mon Oct 12 and Tue Oct 13, 2026
+                    "indicators": {"quote": [{"close": closes}], "adjclose": [{"adjclose": adjcloses}]},
+                }
+            ]
+        }
+    }
+
+
+def test_newest_bar_uses_close_while_adjusted_close_is_blank(monkeypatch):
+    fake = _FakeChart([(200, _today_body([100.0, 101.0], [99.0, None]))])
+    monkeypatch.setattr(data, "_chart_session", lambda: fake)
+    s = data._chart_one("SPY", "5d", "1d")
+    assert s.index[-1] == pd.Timestamp("2026-10-13")
+    assert s.iloc[-1] == pytest.approx(101.0 * 99.0 / 100.0)  # scaled by the latest adjustment ratio
+
+
+def test_newest_bar_falls_back_to_the_same_day_market_price(monkeypatch):
+    four_pm_tue = 1791921600  # 4:00pm ET, Tue Oct 13
+    fake = _FakeChart([(200, _today_body([100.0, None], [100.0, None], market_price=102.5, market_time=four_pm_tue))])
+    monkeypatch.setattr(data, "_chart_session", lambda: fake)
+    s = data._chart_one("SPY", "5d", "1d")
+    assert s.index[-1] == pd.Timestamp("2026-10-13") and s.iloc[-1] == pytest.approx(102.5)
+
+
+def test_market_price_from_another_day_is_not_used(monkeypatch):
+    four_pm_mon = 1791921600 - 86400
+    fake = _FakeChart([(200, _today_body([100.0, None], [100.0, None], market_price=102.5, market_time=four_pm_mon))])
+    monkeypatch.setattr(data, "_chart_session", lambda: fake)
+    s = data._chart_one("SPY", "5d", "1d")
+    assert s.index[-1] == pd.Timestamp("2026-10-12")  # the blank Tuesday bar is dropped, not invented
