@@ -2414,6 +2414,127 @@
     "invalidation": "A close below $151.78, 12% from the pick (about 1.5 typical monthly moves).",
     "ai": null
    }
+  ],
+  "2026-10-26": [
+   {
+    "date": "2026-10-26",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "LRCX",
+    "name": "Lam Research Corporation",
+    "lean": "down",
+    "score": -0.179,
+    "conviction": "Low",
+    "price": 230.1,
+    "etf_price": 183.23,
+    "reasons": [
+     "Trading 19% below its 200-day average ($283.02)",
+     "Faster growth than its group: revenue +54% year over year vs. a median of +52%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +58% from here vs. a median of +31%, which cuts against the call.",
+    "invalidation": "A close above $283.02, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-26",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "TSM",
+    "name": "Taiwan Semiconductor Manufacturing Company Limited",
+    "lean": "up",
+    "score": 0.15,
+    "conviction": "Low",
+    "price": 418.51,
+    "etf_price": 62.29,
+    "reasons": [
+     "17.9\u00d7 forward earnings, cheaper than the group median of 22.1\u00d7",
+     "More analyst upside than its group: the average target is +40% from here vs. a median of +31%",
+     "Faster growth than its group: revenue +51% year over year vs. a median of +30%"
+    ],
+    "risk": "Trading 6% above its 200-day average ($396.05), which cuts against the call.",
+    "invalidation": "A close below $396.05, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-26",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "BRK-B",
+    "name": "Berkshire Hathaway Inc.",
+    "lean": "down",
+    "score": -0.486,
+    "conviction": "Medium",
+    "price": 542.19,
+    "etf_price": 55.9,
+    "reasons": [
+     "Less analyst upside than its group: the average target is +2% from here vs. a median of +18%",
+     "Lagging its sector group: +3% over the past year (excluding the last month) vs. a median of +10%",
+     "24.2\u00d7 forward earnings, pricier than the group median of 13.1\u00d7"
+    ],
+    "risk": "Trading 10% above its 200-day average ($494.59), which cuts against the call.",
+    "invalidation": "A close above $576.61, 6% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-26",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "MCD",
+    "name": "McDonald's Corporation",
+    "lean": "down",
+    "score": -0.573,
+    "conviction": "Medium",
+    "price": 248.46,
+    "etf_price": 113.1,
+    "reasons": [
+     "Lagging its sector group: -22% over the past year (excluding the last month) vs. a median of -10%",
+     "Trading 12% below its 200-day average ($281.54)",
+     "Slower growth than its group: revenue +4% year over year vs. a median of +7%"
+    ],
+    "risk": "18.1\u00d7 forward earnings, cheaper than the group median of 24.5\u00d7, which cuts against the call.",
+    "invalidation": "A close above $269.49, 8% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-26",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "VLO",
+    "name": "Valero Energy Corporation",
+    "lean": "up",
+    "score": 1.089,
+    "conviction": "High",
+    "price": 419.28,
+    "etf_price": 69.33,
+    "reasons": [
+     "Leading its sector group: +142% over the past year (excluding the last month) vs. a median of +48%",
+     "Trading 50% above its 200-day average ($279.17)",
+     "8.1\u00d7 forward earnings, cheaper than the group median of 14.4\u00d7"
+    ],
+    "risk": "More analyst upside than its group: the average target is +1% from here vs. a median of +1%, which cuts against the call.",
+    "invalidation": "A close below $351.13, 16% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-26",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "WELL",
+    "name": "Welltower Inc.",
+    "lean": "up",
+    "score": 0.812,
+    "conviction": "High",
+    "price": 237.32,
+    "etf_price": 42.57,
+    "reasons": [
+     "Leading its sector group: +35% over the past year (excluding the last month) vs. a median of +9%",
+     "Faster growth than its group: revenue +39% year over year vs. a median of +15%",
+     "Trading 10% above its 200-day average ($216.36)"
+    ],
+    "risk": "74.6\u00d7 forward earnings, pricier than the group median of 41.4\u00d7, which cuts against the call.",
+    "invalidation": "A close below $216.36, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
