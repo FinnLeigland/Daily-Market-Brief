@@ -2776,6 +2776,126 @@
     "invalidation": "A close above $344.17, 10% from the pick (about 1.5 typical monthly moves).",
     "ai": null
    }
+  ],
+  "2026-10-29": [
+   {
+    "date": "2026-10-29",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "AAPL",
+    "name": "Apple Inc.",
+    "lean": "down",
+    "score": -0.527,
+    "conviction": "Medium",
+    "price": 343.83,
+    "etf_price": 191.0,
+    "reasons": [
+     "Less analyst upside than its group: the average target is -3% from here vs. a median of +23%",
+     "Lagging its sector group: +23% over the past year (excluding the last month) vs. a median of +37%",
+     "Slower growth than its group: revenue +16% year over year vs. a median of +52%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close above $379.50, 10% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-29",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "INTC",
+    "name": "Intel Corporation",
+    "lean": "up",
+    "score": 0.573,
+    "conviction": "Medium",
+    "price": 95.53,
+    "etf_price": 64.4,
+    "reasons": [
+     "Leading its sector group: +193% over the past year (excluding the last month) vs. a median of -1%"
+    ],
+    "risk": "Slower growth than its group: revenue +25% year over year vs. a median of +30%, which cuts against the call.",
+    "invalidation": "A close below $86.56, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-29",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "GS",
+    "name": "The Goldman Sachs Group, Inc.",
+    "lean": "up",
+    "score": 0.489,
+    "conviction": "Medium",
+    "price": 925.17,
+    "etf_price": 56.13,
+    "reasons": [
+     "Faster growth than its group: revenue +23% year over year vs. a median of +10%",
+     "Leading its sector group: +18% over the past year (excluding the last month) vs. a median of +6%",
+     "12.5\u00d7 forward earnings, cheaper than the group median of 13.6\u00d7"
+    ],
+    "risk": "Trading 3% below its 200-day average ($951.71), which cuts against the call.",
+    "invalidation": "A close below $797.69, 14% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-29",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "MAR",
+    "name": "Marriott International, Inc.",
+    "lean": "up",
+    "score": 0.704,
+    "conviction": "Medium",
+    "price": 394.4,
+    "etf_price": 115.33,
+    "reasons": [
+     "Leading its sector group: +34% over the past year (excluding the last month) vs. a median of -14%",
+     "Trading 11% above its 200-day average ($354.31)",
+     "Faster growth than its group: revenue +11% year over year vs. a median of +7%"
+    ],
+    "risk": "Less analyst upside than its group: the average target is -2% from here vs. a median of +19%, which cuts against the call.",
+    "invalidation": "A close below $354.31, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-10-29",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "MPC",
+    "name": "Marathon Petroleum Corporation",
+    "lean": "up",
+    "score": 1.03,
+    "conviction": "High",
+    "price": 440.77,
+    "etf_price": 68.45,
+    "reasons": [
+     "Leading its sector group: +103% over the past year (excluding the last month) vs. a median of +42%",
+     "Trading 54% above its 200-day average ($286.91)",
+     "7.3\u00d7 forward earnings, cheaper than the group median of 14.2\u00d7"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +4% from here vs. a median of +4%, which cuts against the call.",
+    "invalidation": "A close below $371.34, 16% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-10-29",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "VMRK",
+    "name": "AvalonBay Communities, Inc.",
+    "lean": "down",
+    "score": -0.395,
+    "conviction": "Low",
+    "price": 60.9,
+    "etf_price": 42.13,
+    "reasons": [
+     "Slower growth than its group: revenue +3% year over year vs. a median of +15%",
+     "Lagging its sector group: +0% over the past year (excluding the last month) vs. a median of +5%",
+     "Trading 3% below its 200-day average ($62.75)"
+    ],
+    "risk": "41.4\u00d7 forward earnings, pricier than the group median of 40.5\u00d7, which cuts against the call.",
+    "invalidation": "A close above $62.75, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
