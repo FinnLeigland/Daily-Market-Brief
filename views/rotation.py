@@ -11,18 +11,16 @@ import signal_checks
 from theme import (
     GRID,
     INK,
-    INK_2,
     INK_3,
     MUTED,
-    NEG,
-    POS,
     SERIES,
     caption,
+    end_labels,
     explain,
+    fmt_value,
     html,
     section,
     style_fig,
-    table_html,
     warn,
 )
 
@@ -41,10 +39,125 @@ def _ret(s: pd.Series, period: str) -> float | None:
     return data.ytd_change(s) if period == "YTD" else data.pct_change(s, PERIODS[period])
 
 
+def _heat(v: float, scale: float) -> str:
+    """CSS class for a cell: green for beating the market, red for trailing, four steps of strength.
+    (Streamlit strips inline styles from table cells, so the shades live in style.css.)"""
+    step = min(4, max(1, int(abs(v) / scale * 4 + 0.999))) if abs(v) >= 0.05 else 0
+    return f"heat {'p' if v >= 0 else 'n'}{step}" if step else "heat"
+
+
+def _risk_line(prices: pd.DataFrame) -> pd.Series:
+    yr = prices[CYCLICALS + DEFENSIVES].ffill().iloc[-253:]
+    norm = yr / yr.iloc[0]
+    return (norm[CYCLICALS].mean(axis=1) / norm[DEFENSIVES].mean(axis=1) - 1) * 100
+
+
+def _overview(prices: pd.DataFrame, quad_now: dict[str, str]) -> None:
+    secs, names = list(config.ALL_SECTORS), config.ALL_SECTORS
+    sb = A.sector_scoreboard(prices, secs, config.BENCHMARK)
+    risk = _risk_line(prices)
+    risk_chg = risk.iloc[-1] - risk.iloc[-22]
+
+    def who(rows: pd.DataFrame, col: str) -> str:
+        return ", ".join(f"{names[e]} ({r[col]:+.1f})" for e, r in rows.iterrows())
+
+    def moves(rows: pd.DataFrame) -> str:
+        return ", ".join(
+            f"{names[e]} ({'▲' if r.rank_change > 0 else '▼'}{abs(int(r.rank_change))} to #{int(r['rank'])})"
+            for e, r in rows.iterrows()
+        )
+
+    ins = sb[sb.rank_change >= 2].sort_values("rank_change", ascending=False).head(3)
+    outs = sb[sb.rank_change <= -2].sort_values("rank_change").head(3)
+    above = int((sb.vs_200d > 0).sum())
+    breadth = "a broad market" if above >= 8 else "narrow leadership" if above <= 4 else "a mixed market"
+    bullets = [
+        f"<b>Leading:</b> {who(sb.head(3), '3M')} pts ahead of the S&amp;P 500 over three months. "
+        f"<b>Trailing:</b> {who(sb.tail(3).iloc[::-1], '3M')}.",
+        f"<b>Rotating in:</b> {moves(ins)}."
+        if len(ins)
+        else "<b>Rotating in:</b> no sector climbed two or more places this month.",
+        f"<b>Rotating out:</b> {moves(outs)}."
+        if len(outs)
+        else "<b>Rotating out:</b> no sector fell two or more places this month.",
+        f"<b>Breadth:</b> {above} of {len(secs)} sectors trade above their 200-day average, {breadth}.",
+        f"<b>Risk appetite:</b> cyclicals {'gained' if risk_chg > 0 else 'lost'} {abs(risk_chg):.1f} pts against "
+        f"defensives this month, {'a risk-on tilt' if risk_chg > 0 else 'a risk-off tilt'}.",
+    ]
+    section("Where money is moving", "Select Sector SPDR ETFs vs. the S&P 500 · ranked by 3-month relative strength")
+    html('<div class="brief"><ul>' + "".join(f"<li>{b}</li>" for b in bullets) + "</ul></div>")
+
+    # ----- Scoreboard -----
+    section("Relative-strength scoreboard", "Each sector's return minus the S&P 500's, in percentage points")
+    head = (
+        '<tr class="th"><td>#</td><td>Sector</td>'
+        + "".join(f'<td class="n">{w}</td>' for w in A.SCOREBOARD_WINDOWS)
+        + '<td class="n">Rank vs. 1M ago</td><td class="n">vs. 200-day</td><td>Rotation graph</td></tr>'
+    )
+    rows = []
+    for etf, r in sb.iterrows():
+        rc = int(r.rank_change)
+        move = (
+            f'<span class="chg up">▲ {rc}</span>'
+            if rc > 0
+            else f'<span class="chg down">▼ {-rc}</span>'
+            if rc < 0
+            else '<span class="chg flat">–</span>'
+        )
+        cells = "".join(
+            f'<td class="n {_heat(r[w], scale)}">{fmt_value("{:+.1f}", r[w])}</td>'
+            for w, scale in zip(A.SCOREBOARD_WINDOWS, (3, 5, 8, 12), strict=True)
+        )
+        trend = "up" if r.vs_200d > 0 else "down"
+        rows.append(
+            f'<tr><td class="n rk">{int(r["rank"])}</td><td><b>{names[etf]}</b> <span class="etf">{etf}</span></td>{cells}'
+            f'<td class="n">{move}</td><td class="n"><span class="chg {trend}">{fmt_value("{:+.1f}%", r.vs_200d)}</span></td>'
+            f'<td><span class="swatch" style="background:{QUADRANT_COLORS[quad_now[etf]]}"></span>{quad_now[etf]}</td></tr>'
+        )
+    html(f'<div class="tbl-wrap board"><table class="tbl">{head}{"".join(rows)}</table></div>')
+    caption(
+        "Green cells are beating the S&amp;P 500 over that window, red ones trailing it. A sector climbing the ranks "
+        "while still below its 200-day average is a turn worth watching; a leader slipping in rank is often the first "
+        "sign of rotation out.",
+        teach=True,
+    )
+
+    # ----- Leadership race -----
+    section("Leadership race", "Six months of each sector vs. the S&P 500 · above 100 means it has beaten the market")
+    ri = A.relative_index(prices, secs, config.BENCHMARK, days=126)
+    order = sb.index.tolist()
+    leaders, laggards = [SERIES[0], SERIES[2], SERIES[6]], [SERIES[7], SERIES[1], SERIES[3]]  # cool vs. warm
+    highlight = {**dict(zip(order[:3], leaders, strict=True)), **dict(zip(order[-3:][::-1], laggards, strict=True))}
+    fig = go.Figure()
+    for etf in reversed(order):  # highlighted lines drawn last, on top
+        hl = etf in highlight
+        fig.add_scatter(
+            x=ri.index,
+            y=ri[etf],
+            mode="lines",
+            name=names[etf],
+            line=dict(color=highlight.get(etf, MUTED), width=2.2 if hl else 1),
+            opacity=1 if hl else 0.55,
+            hovertemplate=f"{names[etf]}: %{{y:.1f}}<extra></extra>",
+            showlegend=False,
+        )
+    fig.add_hline(y=100, line=dict(color=INK_3, width=1, dash="dot"))
+    style_fig(fig, 380, ysuffix="").update_layout(hovermode="closest", margin=dict(r=150))
+    end_labels(fig, {names[e]: ri[e].iloc[-1] for e in highlight})
+    st.plotly_chart(fig, width="stretch")
+    caption(
+        "The three leaders by three-month relative strength are in cool colors, the three laggards in warm ones; "
+        "the rest are grey.",
+        teach=True,
+    )
+
+
 def render(prices: pd.DataFrame) -> None:
 
     weekly = data.get_prices(tuple(list(config.ALL_SECTORS) + [config.BENCHMARK]), period="2y", interval="1wk")
     ratio, mom = A.relative_rotation(weekly[list(config.ALL_SECTORS)], weekly[config.BENCHMARK])
+    quad_now = {e: A.rrg_quadrant(ratio[e].iloc[-1], mom[e].iloc[-1]) for e in config.ALL_SECTORS}
+    _overview(prices, quad_now)
 
     section("Relative rotation graph", "Weekly · vs. S&P 500 · tails show the recent path, dot is this week")
     tail = st.slider("Tail length (weeks)", 2, 12, 5, key="rrg_tail")
@@ -154,14 +267,6 @@ def render(prices: pd.DataFrame) -> None:
             + "; ".join(f"{s} ({r['4 weeks ago']} → {r['Quadrant']})" for s, r in moved.iterrows())
             + "."
         )
-    html(
-        table_html(
-            table,
-            {"RS-Ratio": "{:.2f}", "RS-Momentum": "{:.2f}", "1M": "{:+.1f}%", "3M": "{:+.1f}%"},
-            first_col="Sector",
-            color_cols=("1M", "3M"),
-        )
-    )
 
     explain(
         "the rotation graph",
@@ -181,9 +286,7 @@ def render(prices: pd.DataFrame) -> None:
         "Risk appetite: cyclicals vs. defensives",
         "Equal-weight XLK, XLY, XLI, XLF ÷ equal-weight XLU, XLP, XLV · 1 year",
     )
-    yr = prices[CYCLICALS + DEFENSIVES].ffill().iloc[-253:]
-    norm = yr / yr.iloc[0]
-    line = (norm[CYCLICALS].mean(axis=1) / norm[DEFENSIVES].mean(axis=1) - 1) * 100
+    line = _risk_line(prices)
     fig = go.Figure(
         go.Scatter(
             x=line.index,
@@ -204,35 +307,3 @@ def render(prices: pd.DataFrame) -> None:
         f"{abs(chg):.1f} pts in the last month. A rising line means investors are paying up for growth "
         "(risk-on); a falling line means they are hiding in steady earners (risk-off)."
     )
-
-    # ----- Returns by period -----
-    section("Sector returns", "Select Sector SPDR ETFs vs. the S&P 500")
-    period = (
-        st.segmented_control("Period", list(PERIODS), default="1M", key="rot_period", label_visibility="collapsed")
-        or "1M"
-    )
-    perf = pd.Series({name: _ret(prices[etf], period) for etf, name in config.ALL_SECTORS.items()}).sort_values()
-    spy_ret = _ret(prices[config.BENCHMARK], period)
-    fig = go.Figure(
-        go.Bar(
-            x=perf.values,
-            y=perf.index,
-            orientation="h",
-            marker=dict(color=[POS if v >= 0 else NEG for v in perf.values], cornerradius=4),
-            text=[f"{v:+.1f}%" for v in perf.values],
-            textposition="outside",
-            cliponaxis=False,
-            textfont=dict(color=INK_2),
-            hovertemplate="%{y}: %{x:+.2f}%<extra></extra>",
-        )
-    )
-    fig.add_vline(
-        x=spy_ret,
-        line=dict(color=INK_3, dash="dot", width=1.5),
-        annotation=dict(text=f"S&P 500 {spy_ret:+.1f}%", font_size=11, font_color=INK_3),
-        annotation_position="top",
-    )
-    style_fig(fig, 420).update_layout(hovermode="closest", bargap=0.35)
-    fig.update_xaxes(ticksuffix="%", gridcolor=GRID, showgrid=True)
-    fig.update_yaxes(ticksuffix="", gridcolor="rgba(0,0,0,0)", zeroline=False)
-    st.plotly_chart(fig, width="stretch")
