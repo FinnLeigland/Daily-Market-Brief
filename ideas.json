@@ -3258,6 +3258,124 @@
     "invalidation": "A close below $202.69, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-11-02": [
+   {
+    "date": "2026-11-02",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "LRCX",
+    "name": "Lam Research Corporation",
+    "lean": "down",
+    "score": -0.07,
+    "conviction": "Low",
+    "price": 226.0,
+    "etf_price": 174.4,
+    "reasons": [
+     "Trading 20% below its 200-day average ($283.89)",
+     "Faster growth than its group: revenue +54% year over year vs. a median of +52%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +61% from here vs. a median of +47%, which cuts against the call.",
+    "invalidation": "A close above $283.89, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-02",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "TSM",
+    "name": "Taiwan Semiconductor Manufacturing Company Limited",
+    "lean": "up",
+    "score": 0.207,
+    "conviction": "Low",
+    "price": 399.54,
+    "etf_price": 59.15,
+    "reasons": [
+     "Leading its sector group: +58% over the past year (excluding the last month) vs. a median of +10%",
+     "17.1\u00d7 forward earnings, cheaper than the group median of 21.0\u00d7",
+     "Faster growth than its group: revenue +51% year over year vs. a median of +30%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close below $398.95, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-02",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "V",
+    "name": "Visa Inc.",
+    "lean": "up",
+    "score": 0.021,
+    "conviction": "Low",
+    "price": 424.5,
+    "etf_price": 57.49,
+    "reasons": [
+     "Trading 24% above its 200-day average ($341.95)",
+     "Faster growth than its group: revenue +13% year over year vs. a median of +10%"
+    ],
+    "risk": "24.8\u00d7 forward earnings, pricier than the group median of 13.5\u00d7, which cuts against the call.",
+    "invalidation": "A close below $383.32, 10% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-02",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "ROST",
+    "name": "Ross Stores, Inc.",
+    "lean": "up",
+    "score": 0.923,
+    "conviction": "High",
+    "price": 231.23,
+    "etf_price": 117.99,
+    "reasons": [
+     "Leading its sector group: +46% over the past year (excluding the last month) vs. a median of -11%",
+     "Faster growth than its group: revenue +13% year over year vs. a median of +7%",
+     "Trading 4% above its 200-day average ($221.97)"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close below $221.97, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-02",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "COP",
+    "name": "ConocoPhillips",
+    "lean": "down",
+    "score": -0.184,
+    "conviction": "Low",
+    "price": 147.55,
+    "etf_price": 67.62,
+    "reasons": [
+     "Less analyst upside than its group: the average target is +3% from here vs. a median of +5%",
+     "Leading its sector group: +48% over the past year (excluding the last month) vs. a median of +44%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close above $167.40, 13% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-02",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "VTR",
+    "name": "Ventas, Inc.",
+    "lean": "down",
+    "score": -0.155,
+    "conviction": "Low",
+    "price": 86.91,
+    "etf_price": 43.69,
+    "reasons": [
+     "125.1\u00d7 forward earnings, pricier than the group median of 39.3\u00d7",
+     "Trading 1% above its 200-day average ($85.73)"
+    ],
+    "risk": "Leading its sector group: +16% over the past year (excluding the last month) vs. a median of +7%, which cuts against the call.",
+    "invalidation": "A close above $95.45, 10% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   }
   ]
  }
 }
