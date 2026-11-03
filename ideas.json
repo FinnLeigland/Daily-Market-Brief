@@ -3376,6 +3376,127 @@
     "invalidation": "A close above $95.45, 10% from the pick (about 1.5 typical monthly moves).",
     "ai": null
    }
+  ],
+  "2026-11-03": [
+   {
+    "date": "2026-11-03",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "MU",
+    "name": "Micron Technology, Inc.",
+    "lean": "up",
+    "score": 1.753,
+    "conviction": "High",
+    "price": 850.39,
+    "etf_price": 176.84,
+    "reasons": [
+     "Leading its sector group: +376% over the past year (excluding the last month) vs. a median of +40%",
+     "Faster growth than its group: revenue +379% year over year vs. a median of +52%",
+     "More analyst upside than its group: the average target is +84% from here vs. a median of +43%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close below $751.55, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-03",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "TSLA",
+    "name": "Tesla, Inc.",
+    "lean": "down",
+    "score": -1.019,
+    "conviction": "High",
+    "price": 398.26,
+    "etf_price": 59.65,
+    "reasons": [
+     "184.5\u00d7 forward earnings, pricier than the group median of 21.5\u00d7",
+     "Lagging its sector group: -17% over the past year (excluding the last month) vs. a median of +15%",
+     "Less analyst upside than its group: the average target is +4% from here vs. a median of +36%"
+    ],
+    "risk": "Trading 3% above its 200-day average ($384.93), which cuts against the call.",
+    "invalidation": "A close above $475.47, 19% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-03",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "JPM",
+    "name": "JPMorgan Chase & Co.",
+    "lean": "up",
+    "score": 0.06,
+    "conviction": "Low",
+    "price": 337.89,
+    "etf_price": 57.31,
+    "reasons": [
+     "13.2\u00d7 forward earnings, cheaper than the group median of 13.4\u00d7",
+     "Leading its sector group: +8% over the past year (excluding the last month) vs. a median of +7%"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +11% from here vs. a median of +13%, which cuts against the call.",
+    "invalidation": "A close below $320.63, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-03",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "AMZN",
+    "name": "Amazon.com, Inc.",
+    "lean": "up",
+    "score": 0.238,
+    "conviction": "Low",
+    "price": 250.87,
+    "etf_price": 117.34,
+    "reasons": [
+     "More analyst upside than its group: the average target is +30% from here vs. a median of +15%",
+     "Trading 3% above its 200-day average ($243.50)",
+     "Leading its sector group: +3% over the past year (excluding the last month) vs. a median of -10%"
+    ],
+    "risk": "Faster growth than its group: revenue +12% year over year vs. a median of +7%, which cuts against the call.",
+    "invalidation": "A close below $243.50, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-03",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "CVX",
+    "name": "Chevron Corporation",
+    "lean": "down",
+    "score": -0.296,
+    "conviction": "Low",
+    "price": 226.19,
+    "etf_price": 67.11,
+    "reasons": [
+     "Lagging its sector group: +36% over the past year (excluding the last month) vs. a median of +45%",
+     "Less analyst upside than its group: the average target is +7% from here vs. a median of +7%",
+     "Trading 18% above its 200-day average ($191.91)"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close above $250.01, 11% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-03",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "PLD",
+    "name": "Prologis, Inc.",
+    "lean": "down",
+    "score": -0.282,
+    "conviction": "Low",
+    "price": 128.41,
+    "etf_price": 43.57,
+    "reasons": [
+     "Trading 6% below its 200-day average ($136.20)",
+     "Slower growth than its group: revenue +10% year over year vs. a median of +12%",
+     "Lagging its sector group: +6% over the past year (excluding the last month) vs. a median of +8%"
+    ],
+    "risk": "35.6\u00d7 forward earnings, cheaper than the group median of 38.8\u00d7, which cuts against the call.",
+    "invalidation": "A close above $136.20, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
