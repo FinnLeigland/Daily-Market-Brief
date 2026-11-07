@@ -210,3 +210,14 @@ def test_warnings_toggle(monkeypatch):
     assert theme.show_warnings() is False and theme.show_help() is True  # independent of explanations
     theme.toggle_warnings()
     assert theme.show_warnings() is True
+
+
+def test_reasons_agree_with_the_call_even_with_an_outlier():
+    """One huge winner used to drag the average up, so a stock above the group median could score as 'down'
+    while its reason said 'Leading its sector group'. Scoring now uses the median, so the two always agree."""
+    closes = _closes({"MOON": 0.008, "A": 0.0016, "B": 0.0012, "C": 0.0008, "D": 0.0004, "E": 0.0})
+    s = I.score(I.raw_signals(closes, _infos(MOON={}, A={}, B={}, C={}, D={}, E={})))
+    med = s["momentum"].median()
+    for t in s.index:
+        above = s.loc[t, "momentum"] >= med
+        assert (s.loc[t, "c_momentum"] >= 0) == above, t

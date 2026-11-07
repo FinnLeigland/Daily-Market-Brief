@@ -514,3 +514,36 @@ def stress_test(r: pd.Series) -> dict[str, float | None]:
         window = r.loc[start:end]
         out[name] = ((1 + window).prod() - 1) * 100 if len(window) and window.index[0] <= pd.Timestamp(start) else None
     return out
+
+
+# ---------- Sector scoreboard (relative strength, leadership changes, breadth) ----------
+
+SCOREBOARD_WINDOWS = {"1W": 5, "1M": 21, "3M": 63, "6M": 126}
+
+
+def sector_scoreboard(prices: pd.DataFrame, sectors: list[str], bench: str, lookback: int = 21) -> pd.DataFrame:
+    """One row per sector: return minus the benchmark's over each window (pts), the rank by 3-month relative strength
+    now and `lookback` trading days ago, the change in rank (positive = moved up), and distance from the 200-day
+    average. Sorted by today's rank."""
+    px = prices[sectors + [bench]].ffill()
+
+    def rel(days: int, end: int = 0) -> pd.Series:
+        now = px.iloc[-1 - end]
+        then = px.iloc[-1 - end - days]
+        r = (now / then - 1) * 100
+        return r[sectors] - r[bench]
+
+    out = pd.DataFrame({k: rel(d) for k, d in SCOREBOARD_WINDOWS.items()})
+    out["rank"] = out["3M"].rank(ascending=False, method="first").astype(int)
+    before = rel(SCOREBOARD_WINDOWS["3M"], end=lookback).rank(ascending=False, method="first").astype(int)
+    out["rank_change"] = before - out["rank"]
+    ma200 = px[sectors].rolling(200).mean().iloc[-1]
+    out["vs_200d"] = (px[sectors].iloc[-1] / ma200 - 1) * 100
+    return out.sort_values("rank")
+
+
+def relative_index(prices: pd.DataFrame, sectors: list[str], bench: str, days: int = 126) -> pd.DataFrame:
+    """Each sector's performance relative to the benchmark over the last `days`, as an index starting at 100."""
+    px = prices[sectors + [bench]].ffill().iloc[-days - 1 :]
+    ratio = px[sectors].div(px[bench], axis=0)
+    return ratio / ratio.iloc[0] * 100

@@ -6,6 +6,7 @@ import pandas as pd
 import streamlit as st
 
 import ai
+import catalysts as CAT
 import config
 import data
 import ideas as I
@@ -109,6 +110,89 @@ def _backtest(groups: tuple[tuple[str, tuple[str, ...]], ...]) -> dict | None:
     tickers = sorted({t for _, ts in groups for t in ts})
     closes = data.get_prices(tuple(tickers), period="10y")
     return I.backtest_summary(I.backtest_price_screen({g: list(ts) for g, ts in groups}, closes))
+
+
+def _chips(effects: dict[str, int], tickers: bool = False) -> str:
+    out = []
+    for name, v in effects.items():
+        tone, arrow = {1: ("up", "▲"), -1: ("down", "▼"), 0: ("flat", "●")}[v]
+        out.append(f'<span class="chip {tone}{" tk" if tickers else ""}">{arrow} {escape(name)}</span>')
+    return "".join(out)
+
+
+def _catalysts(todays: list[dict], today: str) -> None:
+    section("Catalysts", "What today's news could move, and what's on the calendar for the next three weeks")
+    cands, _, infos = inputs()
+    sector_of = {t: s for s, ts in cands.items() for t in ts}
+    names = CAT.aliases(
+        {t: (infos.get(t) or {}).get("longName") or (infos.get(t) or {}).get("shortName") or t for t in sector_of}
+    )
+    picks = {i["ticker"] for i in todays}
+
+    # --- In the news ---
+    with st.spinner("Reading the headlines…"):
+        news = data.get_news()
+    items = CAT.pick_headlines(news, names, n=8)
+    by_ai = ai.read_headlines(items, CAT.SECTORS, sorted(sector_of)) if items else {}
+    rows = []
+    for a in items:
+        read = by_ai.get(a["link"]) or a["read"]
+        chips = _chips(read["sectors"]) + _chips(read["tickers"], tickers=True)
+        pick = any(t in picks for t in read["tickers"])
+        rows.append(
+            f'<div class="cat-item"><a class="t" href="{escape(a["link"])}" target="_blank">{escape(a["title"])}</a>'
+            f'<div class="src">{escape(a.get("source", ""))} · {data.time_ago(a["published"])}'
+            f"{' · <b>mentions one of today&#39;s picks</b>' if pick else ''}</div>"
+            f'<div class="chips">{chips or '<span class="chip flat">No clear sector effect</span>'}</div>'
+            f"{f'<div class="why">{escape(read["why"])}</div>' if read.get('why') else ''}</div>"
+        )
+    news_col = (
+        '<div><div class="eyebrow">In the news</div>'
+        + ("".join(rows) or '<p class="caption">No market-moving headlines in the last two days.</p>')
+        + "</div>"
+    )
+
+    # --- On the calendar ---
+    with st.spinner("Checking the calendar…"):
+        earnings = data.next_earnings_many(sorted(sector_of), today)
+        events = CAT.upcoming_events(
+            data.get_fomc_dates(), data.get_bls_calendar(), earnings, today, days=21, picks=picks, sector_of=sector_of
+        )
+    major = picks | {t for ts in cands.values() for t in ts[:3]}  # the ETFs list holdings largest first
+    shown = [e for e in events if e["kind"] == "macro" or e.get("ticker") in major]
+    others = [e["ticker"] for e in events if e["kind"] == "earnings" and e.get("ticker") not in major]
+    cal = []
+    for e in shown:
+        when = pd.Timestamp(e["date"])
+        badge = '<span class="badge pick">Pick</span>' if e.get("pick") else ""
+        kind = "macro" if e["kind"] == "macro" else "earn"
+        cal.append(
+            f'<div class="cal-row {kind}"><div class="d">{when:%a}<b>{when:%b} {when.day}</b></div>'
+            f'<div><div class="ev">{escape(e["event"])} {badge}</div>'
+            f'<div class="chips">{_chips({s: 0 for s in e["sectors"]})}</div>'
+            f'<div class="why">{escape(e["note"])}</div></div></div>'
+        )
+    more = (
+        f'<p class="caption cal-more">Also reporting: {", ".join(others[:24])}{" and more" if len(others) > 24 else ""}.</p>'
+        if others
+        else ""
+    )
+    cal_col = (
+        '<div><div class="eyebrow">On the calendar · next 3 weeks</div>'
+        + ("".join(cal) or '<p class="caption">Nothing scheduled in the next three weeks.</p>')
+        + more
+        + "</div>"
+    )
+    html(f'<div class="cat-grid">{news_col}{cal_col}</div>')  # one element, so the two columns sit side by side
+    source = (
+        "Claude read these headlines"
+        if by_ai
+        else "These reads come from rules of thumb that link each theme to the sectors it usually moves"
+    )
+    warn(
+        f"<b>Likely effects, not forecasts.</b> {source}; markets often price news in before you read it. Dates come "
+        "from the Fed, the Bureau of Labor Statistics and Yahoo Finance's earnings calendar."
+    )
 
 
 def _history_check() -> None:
@@ -262,6 +346,7 @@ def render() -> None:
         "record below before trusting them."
     )
 
+    _catalysts(todays, today)
     _history_check()
     _track_record(hist, today)
 

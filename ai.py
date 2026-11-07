@@ -253,3 +253,106 @@ def write_ideas(ideas: list[dict], news: dict[str, list[dict]]) -> dict[str, dic
         for r in results
         if r["ticker"] in wanted
     }
+
+
+CATALYST_CACHE = Path(__file__).with_name(".cache") / "catalysts.json"
+CATALYST_SYSTEM = """You read market headlines for a dashboard used by a college student learning to analyze stocks.
+For each headline, say which of the listed sectors and stocks it most plausibly affects over the next few weeks, and
+which way:
+- sectors: only from the given list; effect "up", "down" or "mixed". Include a sector only if the headline clearly
+  bears on it. Use the textbook links (e.g. higher oil helps energy producers and hurts consumers via fuel costs;
+  higher rates weigh on real estate and long-duration tech).
+- tickers: only tickers from the given list that the headline is actually about; effect "up", "down" or "mixed".
+- why: one plain-English sentence (at most 30 words) explaining the main effect for a beginner.
+Rely only on the headline text. If it's too vague to have a clear effect, return empty lists and say so in why. This
+is analysis of likely effects, not a recommendation, and never a promise."""
+
+
+def read_headlines(items: list[dict], sectors: list[str], tickers: list[str]) -> dict[str, dict]:
+    """{link: {"sectors": {name: +1/-1/0}, "tickers": {ticker: +1/-1/0}, "why"}} for the given headlines.
+
+    Cached on disk by link, so each headline is read once. {} for anything not read (no key, failure)."""
+    try:
+        cache = json.loads(CATALYST_CACHE.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        cache = {}
+    out = {i["link"]: cache[i["link"]] for i in items if i["link"] in cache}
+    todo = [i for i in items if i["link"] not in out]
+    if not todo or not available():
+        return out
+    effect = {"type": "string", "enum": ["up", "down", "mixed"]}
+    schema = {
+        "type": "object",
+        "properties": {
+            "headlines": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "index": {"type": "integer"},
+                        "sectors": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {"sector": {"type": "string", "enum": sectors}, "effect": effect},
+                                "required": ["sector", "effect"],
+                                "additionalProperties": False,
+                            },
+                        },
+                        "tickers": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {"ticker": {"type": "string"}, "effect": effect},
+                                "required": ["ticker", "effect"],
+                                "additionalProperties": False,
+                            },
+                        },
+                        "why": {"type": "string"},
+                    },
+                    "required": ["index", "sectors", "tickers", "why"],
+                    "additionalProperties": False,
+                },
+            }
+        },
+        "required": ["headlines"],
+        "additionalProperties": False,
+    }
+    prompt = f"Sectors: {', '.join(sectors)}\nTickers: {', '.join(tickers)}\n\nHeadlines:\n" + "\n".join(
+        f"{n}. {i['title']} ({i.get('source', '')})" for n, i in enumerate(todo)
+    )
+    try:
+        response = _client(_api_key()).beta.messages.create(
+            model=MODEL,
+            max_tokens=4000,
+            system=CATALYST_SYSTEM,
+            messages=[{"role": "user", "content": prompt}],
+            output_config={"effort": "low", "format": {"type": "json_schema", "schema": schema}},
+            betas=["server-side-fallback-2026-07-01"],
+            fallbacks="default",
+        )
+    except anthropic.AuthenticationError:
+        st.session_state["ai_disabled_reason"] = "bad_key"
+        return out
+    except anthropic.APIError:
+        return out
+    if response.stop_reason in ("refusal", "max_tokens"):
+        return out
+    try:
+        results = json.loads(next((b.text for b in response.content if b.type == "text"), ""))["headlines"]
+    except (json.JSONDecodeError, KeyError):
+        return out
+    sign = {"up": 1, "down": -1, "mixed": 0}
+    allowed = set(tickers)
+    for r in results:
+        if not 0 <= r["index"] < len(todo):
+            continue
+        item = {
+            "sectors": {x["sector"]: sign[x["effect"]] for x in r["sectors"]},
+            "tickers": {x["ticker"]: sign[x["effect"]] for x in r["tickers"] if x["ticker"] in allowed},
+            "why": r["why"].strip(),
+        }
+        out[todo[r["index"]]["link"]] = cache[todo[r["index"]]["link"]] = item
+    CATALYST_CACHE.parent.mkdir(exist_ok=True)
+    CATALYST_CACHE.write_text(json.dumps(cache, indent=1))
+    return out
