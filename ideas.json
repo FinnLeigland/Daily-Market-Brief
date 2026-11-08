@@ -3977,6 +3977,126 @@
     "invalidation": "A close above $60.19, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-11-08": [
+   {
+    "date": "2026-11-08",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "AVGO",
+    "name": "Broadcom Inc.",
+    "lean": "down",
+    "score": -0.259,
+    "conviction": "Low",
+    "price": 293.69,
+    "etf_price": 164.74,
+    "reasons": [
+     "Lagging its sector group: +1% over the past year (excluding the last month) vs. a median of +44%",
+     "Trading 20% below its 200-day average ($366.10)"
+    ],
+    "risk": "More analyst upside than its group: the average target is +82% from here vs. a median of +54%, which cuts against the call.",
+    "invalidation": "A close above $353.70, 20% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-08",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "ORCL",
+    "name": "Oracle Corporation",
+    "lean": "down",
+    "score": -0.658,
+    "conviction": "Medium",
+    "price": 116.1,
+    "etf_price": 56.89,
+    "reasons": [
+     "Lagging its sector group: -45% over the past year (excluding the last month) vs. a median of +6%",
+     "Trading 25% below its 200-day average ($154.41)",
+     "Faster growth than its group: revenue +30% year over year vs. a median of +26%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +103% from here vs. a median of +39%, which cuts against the call.",
+    "invalidation": "A close above $145.88, 26% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-08",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "GS",
+    "name": "The Goldman Sachs Group, Inc.",
+    "lean": "up",
+    "score": 0.475,
+    "conviction": "Medium",
+    "price": 865.82,
+    "etf_price": 57.16,
+    "reasons": [
+     "Faster growth than its group: revenue +23% year over year vs. a median of +10%",
+     "Leading its sector group: +13% over the past year (excluding the last month) vs. a median of +6%",
+     "11.7\u00d7 forward earnings, cheaper than the group median of 13.2\u00d7"
+    ],
+    "risk": "Trading 9% below its 200-day average ($950.29), which cuts against the call.",
+    "invalidation": "A close below $742.76, 14% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-08",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "MAR",
+    "name": "Marriott International, Inc.",
+    "lean": "up",
+    "score": 0.927,
+    "conviction": "High",
+    "price": 416.47,
+    "etf_price": 117.58,
+    "reasons": [
+     "Leading its sector group: +29% over the past year (excluding the last month) vs. a median of -10%",
+     "Trading 16% above its 200-day average ($357.57)",
+     "Faster growth than its group: revenue +11% year over year vs. a median of +6%"
+    ],
+    "risk": "Less analyst upside than its group: the average target is -0% from here vs. a median of +11%, which cuts against the call.",
+    "invalidation": "A close below $367.68, 12% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-08",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "MPC",
+    "name": "Marathon Petroleum Corporation",
+    "lean": "up",
+    "score": 1.337,
+    "conviction": "High",
+    "price": 372.74,
+    "etf_price": 61.62,
+    "reasons": [
+     "Leading its sector group: +153% over the past year (excluding the last month) vs. a median of +55%",
+     "Trading 26% above its 200-day average ($295.17)",
+     "Faster growth than its group: revenue +61% year over year vs. a median of +35%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close below $312.59, 16% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-08",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "VMRK",
+    "name": "AvalonBay Communities, Inc.",
+    "lean": "up",
+    "score": 0.146,
+    "conviction": "Low",
+    "price": 65.51,
+    "etf_price": 44.0,
+    "reasons": [
+     "Faster growth than its group: revenue +55% year over year vs. a median of +12%",
+     "44.5\u00d7 forward earnings, pricier than the group median of 41.3\u00d7"
+    ],
+    "risk": "Lagging its sector group: +5% over the past year (excluding the last month) vs. a median of +8%, which cuts against the call.",
+    "invalidation": "A close below $62.90, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
