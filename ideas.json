@@ -4097,6 +4097,124 @@
     "invalidation": "A close below $62.90, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-11-09": [
+   {
+    "date": "2026-11-09",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "CSCO",
+    "name": "Cisco Systems, Inc.",
+    "lean": "down",
+    "score": -0.172,
+    "conviction": "Low",
+    "price": 98.65,
+    "etf_price": 170.88,
+    "reasons": [
+     "Slower growth than its group: revenue +18% year over year vs. a median of +35%",
+     "Leading its sector group: +70% over the past year (excluding the last month) vs. a median of +47%",
+     "Less analyst upside than its group: the average target is +37% from here vs. a median of +45%"
+    ],
+    "risk": "17.5\u00d7 forward earnings, cheaper than the group median of 21.3\u00d7, which cuts against the call.",
+    "invalidation": "A close above $101.30, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-09",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "META",
+    "name": "Meta Platforms, Inc.",
+    "lean": "up",
+    "score": 0.045,
+    "conviction": "Low",
+    "price": 641.37,
+    "etf_price": 58.77,
+    "reasons": [
+     "18.0\u00d7 forward earnings, cheaper than the group median of 22.5\u00d7",
+     "Leading its sector group: +17% over the past year (excluding the last month) vs. a median of +17%"
+    ],
+    "risk": "Faster growth than its group: revenue +26% year over year vs. a median of +26%, which cuts against the call.",
+    "invalidation": "A close below $631.07, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-09",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "MS",
+    "name": "Morgan Stanley",
+    "lean": "up",
+    "score": 0.203,
+    "conviction": "Low",
+    "price": 187.1,
+    "etf_price": 57.99,
+    "reasons": [
+     "Leading its sector group: +18% over the past year (excluding the last month) vs. a median of +8%",
+     "13.7\u00d7 forward earnings, pricier than the group median of 13.5\u00d7"
+    ],
+    "risk": "Trading 3% below its 200-day average ($192.25), which cuts against the call.",
+    "invalidation": "A close below $163.21, 13% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-09",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "TJX",
+    "name": "The TJX Companies, Inc.",
+    "lean": "down",
+    "score": -0.068,
+    "conviction": "Low",
+    "price": 138.13,
+    "etf_price": 121.01,
+    "reasons": [
+     "Trading 8% below its 200-day average ($150.15)"
+    ],
+    "risk": "More analyst upside than its group: the average target is +24% from here vs. a median of +8%, which cuts against the call.",
+    "invalidation": "A close above $150.15, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-09",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "PSX",
+    "name": "Phillips 66",
+    "lean": "up",
+    "score": 0.662,
+    "conviction": "Medium",
+    "price": 253.02,
+    "etf_price": 61.94,
+    "reasons": [
+     "Leading its sector group: +107% over the past year (excluding the last month) vs. a median of +57%",
+     "Trading 26% above its 200-day average ($201.23)",
+     "7.8\u00d7 forward earnings, cheaper than the group median of 12.4\u00d7"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +16% from here vs. a median of +18%, which cuts against the call.",
+    "invalidation": "A close below $216.55, 14% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-09",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "PSA",
+    "name": "Public Storage",
+    "lean": "down",
+    "score": -0.048,
+    "conviction": "Low",
+    "price": 338.15,
+    "etf_price": 44.64,
+    "reasons": [
+     "Less analyst upside than its group: the average target is -0% from here vs. a median of +9%",
+     "Leading its sector group: +10% over the past year (excluding the last month) vs. a median of +10%",
+     "Slower growth than its group: revenue +11% year over year vs. a median of +12%"
+    ],
+    "risk": "Trading 13% above its 200-day average ($300.05), which cuts against the call.",
+    "invalidation": "A close above $372.50, 10% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   }
   ]
  }
 }
