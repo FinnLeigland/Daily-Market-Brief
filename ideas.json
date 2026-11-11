@@ -4335,6 +4335,128 @@
     "invalidation": "A close above $213.16, 12% from the pick (about 1.5 typical monthly moves).",
     "ai": null
    }
+  ],
+  "2026-11-11": [
+   {
+    "date": "2026-11-11",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "PLTR",
+    "name": "Palantir Technologies Inc.",
+    "lean": "down",
+    "score": -0.585,
+    "conviction": "Medium",
+    "price": 173.33,
+    "etf_price": 176.24,
+    "reasons": [
+     "68.3\u00d7 forward earnings, pricier than the group median of 21.6\u00d7",
+     "Lagging its sector group: +8% over the past year (excluding the last month) vs. a median of +45%",
+     "Less analyst upside than its group: the average target is +28% from here vs. a median of +39%"
+    ],
+    "risk": "Trading 13% above its 200-day average ($153.58), which cuts against the call.",
+    "invalidation": "A close above $218.61, 26% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-11",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "TSLA",
+    "name": "Tesla, Inc.",
+    "lean": "down",
+    "score": -1.035,
+    "conviction": "High",
+    "price": 393.73,
+    "etf_price": 60.37,
+    "reasons": [
+     "182.3\u00d7 forward earnings, pricier than the group median of 21.6\u00d7",
+     "Lagging its sector group: -16% over the past year (excluding the last month) vs. a median of +8%",
+     "Slower growth than its group: revenue -0% year over year vs. a median of +26%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close above $471.97, 20% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-11",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "BAC",
+    "name": "Bank of America Corporation",
+    "lean": "down",
+    "score": -0.185,
+    "conviction": "Low",
+    "price": 50.79,
+    "etf_price": 58.5,
+    "reasons": [
+     "Trading 7% below its 200-day average ($54.51)",
+     "Slower growth than its group: revenue +3% year over year vs. a median of +11%",
+     "Lagging its sector group: +3% over the past year (excluding the last month) vs. a median of +8%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +23% from here vs. a median of +11%, which cuts against the call.",
+    "invalidation": "A close above $54.51, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-11",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "BKNG",
+    "name": "Booking Holdings Inc.",
+    "lean": "down",
+    "score": -0.387,
+    "conviction": "Low",
+    "price": 160.68,
+    "etf_price": 121.07,
+    "reasons": [
+     "Lagging its sector group: -20% over the past year (excluding the last month) vs. a median of -9%",
+     "Trading 8% below its 200-day average ($174.51)",
+     "Slower growth than its group: revenue -1% year over year vs. a median of +6%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +34% from here vs. a median of +8%, which cuts against the call.",
+    "invalidation": "A close above $174.51, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-11",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "SLB",
+    "name": "SLB N.V.",
+    "lean": "down",
+    "score": -0.672,
+    "conviction": "Medium",
+    "price": 50.92,
+    "etf_price": 63.03,
+    "reasons": [
+     "Lagging its sector group: +35% over the past year (excluding the last month) vs. a median of +58%",
+     "Slower growth than its group: revenue +6% year over year vs. a median of +35%",
+     "Trading 1% below its 200-day average ($51.23)"
+    ],
+    "risk": "More analyst upside than its group: the average target is +22% from here vs. a median of +15%, which cuts against the call.",
+    "invalidation": "A close above $51.23, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-11",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "SPG",
+    "name": "Simon Property Group, Inc.",
+    "lean": "up",
+    "score": 0.237,
+    "conviction": "Low",
+    "price": 233.73,
+    "etf_price": 44.42,
+    "reasons": [
+     "Trading 14% above its 200-day average ($204.69)",
+     "Leading its sector group: +15% over the past year (excluding the last month) vs. a median of +10%",
+     "34.5\u00d7 forward earnings, cheaper than the group median of 39.5\u00d7"
+    ],
+    "risk": "Less analyst upside than its group: the average target is -1% from here vs. a median of +11%, which cuts against the call.",
+    "invalidation": "A close below $214.32, 8% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   }
   ]
  }
 }
