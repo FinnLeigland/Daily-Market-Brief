@@ -5176,6 +5176,127 @@
     "invalidation": "A close above $60.22, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-11-18": [
+   {
+    "date": "2026-11-18",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "MU",
+    "name": "Micron Technology, Inc.",
+    "lean": "up",
+    "score": 1.627,
+    "conviction": "High",
+    "price": 700.22,
+    "etf_price": 163.55,
+    "reasons": [
+     "Leading its sector group: +271% over the past year (excluding the last month) vs. a median of +34%",
+     "Faster growth than its group: revenue +379% year over year vs. a median of +49%",
+     "More analyst upside than its group: the average target is +123% from here vs. a median of +45%"
+    ],
+    "risk": "Trading 9% below its 200-day average ($769.72), which cuts against the call.",
+    "invalidation": "A close below $444.19, 37% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-18",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "TSM",
+    "name": "Taiwan Semiconductor Manufacturing Company Limited",
+    "lean": "up",
+    "score": 0.697,
+    "conviction": "Medium",
+    "price": 360.07,
+    "etf_price": 55.92,
+    "reasons": [
+     "Leading its sector group: +52% over the past year (excluding the last month) vs. a median of +13%",
+     "More analyst upside than its group: the average target is +63% from here vs. a median of +38%",
+     "15.4\u00d7 forward earnings, cheaper than the group median of 21.0\u00d7"
+    ],
+    "risk": "Trading 10% below its 200-day average ($402.14), which cuts against the call.",
+    "invalidation": "A close below $294.02, 18% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-18",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "GS",
+    "name": "The Goldman Sachs Group, Inc.",
+    "lean": "up",
+    "score": 0.411,
+    "conviction": "Medium",
+    "price": 871.36,
+    "etf_price": 56.47,
+    "reasons": [
+     "Faster growth than its group: revenue +23% year over year vs. a median of +11%",
+     "Leading its sector group: +16% over the past year (excluding the last month) vs. a median of +14%",
+     "11.7\u00d7 forward earnings, cheaper than the group median of 13.0\u00d7"
+    ],
+    "risk": "Trading 8% below its 200-day average ($949.51), which cuts against the call.",
+    "invalidation": "A close below $747.70, 14% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-18",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "TJX",
+    "name": "The TJX Companies, Inc.",
+    "lean": "down",
+    "score": -0.119,
+    "conviction": "Low",
+    "price": 142.93,
+    "etf_price": 119.39,
+    "reasons": [
+     "Trading 4% below its 200-day average ($149.19)",
+     "Leading its sector group: +2% over the past year (excluding the last month) vs. a median of -3%"
+    ],
+    "risk": "24.8\u00d7 forward earnings, pricier than the group median of 24.6\u00d7, which cuts against the call.",
+    "invalidation": "A close above $149.19, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-18",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "MPC",
+    "name": "Marathon Petroleum Corporation",
+    "lean": "up",
+    "score": 1.334,
+    "conviction": "High",
+    "price": 371.51,
+    "etf_price": 61.32,
+    "reasons": [
+     "Leading its sector group: +146% over the past year (excluding the last month) vs. a median of +61%",
+     "Trading 22% above its 200-day average ($304.11)",
+     "Faster growth than its group: revenue +61% year over year vs. a median of +35%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close below $310.33, 16% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-18",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "VMRK",
+    "name": "Vivmark Residential",
+    "lean": "down",
+    "score": -0.212,
+    "conviction": "Low",
+    "price": 63.58,
+    "etf_price": 43.59,
+    "reasons": [
+     "158.0\u00d7 forward earnings, pricier than the group median of 43.8\u00d7",
+     "Lagging its sector group: +10% over the past year (excluding the last month) vs. a median of +13%",
+     "Trading 1% above its 200-day average ($63.09)"
+    ],
+    "risk": "Faster growth than its group: revenue +55% year over year vs. a median of +12%, which cuts against the call.",
+    "invalidation": "A close above $69.27, 9% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   }
   ]
  }
 }
