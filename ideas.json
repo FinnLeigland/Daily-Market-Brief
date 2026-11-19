@@ -5297,6 +5297,128 @@
     "invalidation": "A close above $69.27, 9% from the pick (about 1.5 typical monthly moves).",
     "ai": null
    }
+  ],
+  "2026-11-19": [
+   {
+    "date": "2026-11-19",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "PLTR",
+    "name": "Palantir Technologies Inc.",
+    "lean": "down",
+    "score": -0.505,
+    "conviction": "Medium",
+    "price": 155.79,
+    "etf_price": 162.63,
+    "reasons": [
+     "61.4\u00d7 forward earnings, pricier than the group median of 19.4\u00d7",
+     "Lagging its sector group: +21% over the past year (excluding the last month) vs. a median of +35%",
+     "Less analyst upside than its group: the average target is +43% from here vs. a median of +47%"
+    ],
+    "risk": "Trading 1% above its 200-day average ($153.91), which cuts against the call.",
+    "invalidation": "A close above $196.27, 26% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-19",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "TSLA",
+    "name": "Tesla, Inc.",
+    "lean": "down",
+    "score": -0.884,
+    "conviction": "High",
+    "price": 378.38,
+    "etf_price": 55.0,
+    "reasons": [
+     "175.2\u00d7 forward earnings, pricier than the group median of 20.8\u00d7",
+     "Lagging its sector group: -4% over the past year (excluding the last month) vs. a median of +18%",
+     "Slower growth than its group: revenue -0% year over year vs. a median of +26%"
+    ],
+    "risk": "Trading 1% below its 200-day average ($381.94), which cuts against the call.",
+    "invalidation": "A close above $381.94, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-19",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "MS",
+    "name": "Morgan Stanley",
+    "lean": "up",
+    "score": 0.121,
+    "conviction": "Low",
+    "price": 176.43,
+    "etf_price": 55.78,
+    "reasons": [
+     "Leading its sector group: +19% over the past year (excluding the last month) vs. a median of +16%",
+     "12.9\u00d7 forward earnings, pricier than the group median of 12.7\u00d7",
+     "More analyst upside than its group: the average target is +20% from here vs. a median of +18%"
+    ],
+    "risk": "Trading 8% below its 200-day average ($192.51), which cuts against the call.",
+    "invalidation": "A close below $153.93, 13% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-19",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "SBUX",
+    "name": "Starbucks Corporation",
+    "lean": "up",
+    "score": 0.026,
+    "conviction": "Low",
+    "price": 106.25,
+    "etf_price": 116.78,
+    "reasons": [
+     "Leading its sector group: +21% over the past year (excluding the last month) vs. a median of -1%",
+     "Trading 7% above its 200-day average ($99.59)",
+     "28.5\u00d7 forward earnings, pricier than the group median of 24.1\u00d7"
+    ],
+    "risk": "Slower growth than its group: revenue -4% year over year vs. a median of +5%, which cuts against the call.",
+    "invalidation": "A close below $99.59, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-19",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "PSX",
+    "name": "Phillips 66",
+    "lean": "up",
+    "score": 0.768,
+    "conviction": "Medium",
+    "price": 244.19,
+    "etf_price": 61.01,
+    "reasons": [
+     "Leading its sector group: +114% over the past year (excluding the last month) vs. a median of +59%",
+     "Trading 19% above its 200-day average ($204.76)",
+     "7.6\u00d7 forward earnings, cheaper than the group median of 12.1\u00d7"
+    ],
+    "risk": "More analyst upside than its group: the average target is +19% from here vs. a median of +18%, which cuts against the call.",
+    "invalidation": "A close below $208.70, 15% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-19",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "PSA",
+    "name": "Public Storage",
+    "lean": "up",
+    "score": 0.1,
+    "conviction": "Low",
+    "price": 327.27,
+    "etf_price": 43.09,
+    "reasons": [
+     "Trading 8% above its 200-day average ($302.55)",
+     "37.0\u00d7 forward earnings, cheaper than the group median of 43.3\u00d7",
+     "Leading its sector group: +14% over the past year (excluding the last month) vs. a median of +12%"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +5% from here vs. a median of +14%, which cuts against the call.",
+    "invalidation": "A close below $302.55, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
