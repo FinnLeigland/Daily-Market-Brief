@@ -9,3 +9,4 @@ journal.json
 progress.json
 ideas.tmp
 .claude/
+.DS_Store

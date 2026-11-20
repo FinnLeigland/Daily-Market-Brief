@@ -9,9 +9,9 @@ A dark-mode markets dashboard: a five-minute daily brief, plus labs that each an
 | **Digest** | Market pulse, an auto-written brief, trend cards for six sectors (Technology, AI via Global X AIQ, Financials, Consumer Discretionary, Energy, Real Estate) (50/200-day moving-average classification, top-holding moves, lead headline), curated reading list, term of the day |
 | **Macro** | An institutional-style macro report: a regime call with a five-line assessment, an indicator monitor (latest, prior, 6M, 1Y, 24-month trend, as-of dates and sources), then a five-section read: (1) growth (industrial production, payrolls, unemployment), (2) inflation (headline and core CPI vs. the 2% target), (3) rates (Fed funds, 2Y, 10Y, curve), (4) the growth × inflation regime with the best and worst sectors in each since 1999, (5) recession odds from a logistic-regression model trained on NBER dates, plus five warning lights |
 | **Micro** | The structure inside a sector: sector anatomy (market cap, share of the US market, companies, employees), an industry treemap and returns table vs. the sector ETF, then an industry deep dive with concentration (leader share, CR3, HHI under the 2023 U.S. Merger Guidelines), a growth-vs-margin competitive landscape, a peer comparison table, top performers and fastest growers, and one-click hand-off to the Stock Lab |
-| **Sector Rotation** | Relative rotation graph (RS-Ratio vs. RS-Momentum, weekly, with tails), quadrant changes, cyclicals-vs-defensives risk-appetite line, returns by period |
+| **Sector Rotation** | Where money is moving: a plain-English read of leadership, which sectors are climbing or slipping in the rankings, breadth (how many sectors are above their 200-day average) and risk appetite; a relative-strength scoreboard (each sector vs. the S&P 500 over 1W/1M/3M/6M, shaded, with rank change vs. a month ago); a six-month leadership race; the relative rotation graph; and the cyclicals-vs-defensives risk-appetite line |
 | **Stock Lab** | 14 fundamentals vs. the median of the company's sector-ETF peers, peer bar charts (click a bar to open that company), auto-generated takeaways, a price chart that labels unusually large moves vs. the market (earnings, guidance, deals, market-wide selloffs…) with a click-through overview of each one: the move vs. the S&P 500 and sector, the earnings surprise, volume, what happened next, and the headlines from those days. Plus beta / volatility / Sharpe / max drawdown vs. sector and S&P 500 |
-| **Equity Screen** | A new stock in each of the six featured sectors every day, chosen from the sector ETF's top holdings by a five-signal screen (momentum, trend, valuation, growth, analyst targets). Each idea leans up or down with a conviction level, the reasons, and what would prove it wrong; with an API key, Claude adds a short thesis from that day's headlines. Below the picks: a 10-year backtest of the screen's price signals and a live track record that grades every call after about a month |
+| **Equity Screen** | A new stock in each of the six featured sectors every day, chosen from the sector ETF's top holdings by a five-signal screen (momentum, trend, valuation, growth, analyst targets). Each idea leans up or down with a conviction level, the reasons, and what would prove it wrong; with an API key, Claude adds a short thesis from that day's headlines. Below the picks, **Catalysts**: the day's most market-relevant headlines with their likely effect on sectors and the stocks they name (read by Claude with an API key, otherwise by rules of thumb that link each theme, like oil prices or interest rates, to the sectors it usually moves), and a three-week calendar of Fed rate decisions, CPI, PPI, jobs and JOLTS releases from the Fed and BLS calendars, plus earnings for today's picks and each sector's largest companies. Then a 10-year backtest of the screen's price signals and a live track record that grades every call after about a month |
 | **Analyst Desk** | Private (PIN required). |
 
 ## Methods
@@ -48,7 +48,7 @@ A dark-mode markets dashboard: a five-minute daily brief, plus labs that each an
 | Rotation quadrants (weekly, since 1999) | Leading sectors didn't keep leading; slight mean reversion, too small to trade | No edge |
 | Regime playbook (walk-forward, since 2005) | ~13% vs. ~11%/yr, but t ≈ 1.1 and it reverses with small rule changes | Fragile |
 | S&P 500 vs. 200-day average (since 1994) | Similar return (~10.5% vs. ~10.8%) with the worst drawdown cut from −51% to −22% | Reduces risk |
-| Equity Screen price signals (monthly, since 2017) | Strongest picks beat their sector group by 1.1 pts/month, but the weakest beat it too (+0.5); spread +0.6 pts, t ≈ 0.7 | No edge |
+| Equity Screen price signals (monthly, since 2017) | Strongest picks beat their sector group by 1.2 pts/month, but the weakest beat it too (+0.7); spread +0.4 pts, t ≈ 0.5 | No edge |
 
 Every test uses only data available on the decision date (a unit test plants a future price shock to prove it),
 samples non-overlapping windows, and charges 10 bps per unit of turnover. Numbers update as new data arrives. The
@@ -129,7 +129,7 @@ Without uv: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt 
 ## Development
 
 ```bash
-uv run pytest            # 168 offline tests: equity screen, backtest and grading, valuation, risk, move detection, regimes, recession model, backtests (incl. look-ahead checks), alert rules, AI parsing, industry concentration, outage handling
+uv run pytest            # 181 offline tests: equity screen, backtest and grading, valuation, risk, move detection, regimes, recession model, backtests (incl. look-ahead checks), alert rules, AI parsing, industry concentration, outage handling
 uv run ruff check .      # lint
 uv run ruff format .     # format
 uv add <package>         # add a dependency (updates pyproject.toml and uv.lock)
@@ -146,6 +146,7 @@ checks for updates weekly once the repo is on GitHub, with `yfinance` in its own
 - `views/`: one module per tab
 - `views/micro.py`: industry analysis
 - `views/ideas.py`, `ideas.py`: equity screen, picks, backtest and track record
+- `catalysts.py`: headline reading (themes, direction, companies named) and the Fed/BLS calendar parsers
 - `signal_checks.py`: backtests of the dashboard's own signals (feeds the warnings)
 - `views/scorecard.py`: the old Scorecard page (not a tab; add it back to `app.py` to restore it)
 - `alerts.py`, `notify.py`, `scripts/daily_check.py`: alert rules, delivery, and the daily job
