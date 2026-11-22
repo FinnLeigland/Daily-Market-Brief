@@ -5660,6 +5660,126 @@
     "invalidation": "A close below $206.28, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-11-22": [
+   {
+    "date": "2026-11-22",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "NVDA",
+    "name": "NVIDIA Corporation",
+    "lean": "down",
+    "score": -0.213,
+    "conviction": "Low",
+    "price": 125.53,
+    "etf_price": 149.01,
+    "reasons": [
+     "Trading 38% below its 200-day average ($203.09)",
+     "Lagging its sector group: +14% over the past year (excluding the last month) vs. a median of +33%"
+    ],
+    "risk": "7.6\u00d7 forward earnings, cheaper than the group median of 17.9\u00d7, which cuts against the call.",
+    "invalidation": "A close above $147.92, 18% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-22",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "NVDA",
+    "name": "NVIDIA Corporation",
+    "lean": "up",
+    "score": 0.237,
+    "conviction": "Low",
+    "price": 125.53,
+    "etf_price": 51.02,
+    "reasons": [
+     "Faster growth than its group: revenue +103% year over year vs. a median of +26%",
+     "More analyst upside than its group: the average target is +95% from here vs. a median of +51%",
+     "7.6\u00d7 forward earnings, cheaper than the group median of 20.0\u00d7"
+    ],
+    "risk": "Trading 38% below its 200-day average ($203.09), which cuts against the call.",
+    "invalidation": "A close below $103.14, 18% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-22",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "V",
+    "name": "Visa Inc.",
+    "lean": "up",
+    "score": 0.568,
+    "conviction": "Medium",
+    "price": 401.87,
+    "etf_price": 54.57,
+    "reasons": [
+     "Leading its sector group: +29% over the past year (excluding the last month) vs. a median of +14%",
+     "Trading 15% above its 200-day average ($347.95)",
+     "Faster growth than its group: revenue +13% year over year vs. a median of +11%"
+    ],
+    "risk": "23.4\u00d7 forward earnings, pricier than the group median of 12.1\u00d7, which cuts against the call.",
+    "invalidation": "A close below $361.67, 10% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-22",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "HLT",
+    "name": "Hilton Worldwide Holdings Inc.",
+    "lean": "up",
+    "score": 0.626,
+    "conviction": "Medium",
+    "price": 356.25,
+    "etf_price": 112.46,
+    "reasons": [
+     "Leading its sector group: +34% over the past year (excluding the last month) vs. a median of +1%",
+     "Trading 9% above its 200-day average ($326.00)",
+     "Faster growth than its group: revenue +6% year over year vs. a median of +5%"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +5% from here vs. a median of +12%, which cuts against the call.",
+    "invalidation": "A close below $326.00, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-22",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "COP",
+    "name": "ConocoPhillips",
+    "lean": "down",
+    "score": -0.16,
+    "conviction": "Low",
+    "price": 136.12,
+    "etf_price": 60.51,
+    "reasons": [
+     "Less analyst upside than its group: the average target is +13% from here vs. a median of +21%",
+     "Leading its sector group: +69% over the past year (excluding the last month) vs. a median of +62%",
+     "Slower growth than its group: revenue +29% year over year vs. a median of +35%"
+    ],
+    "risk": "Trading 11% above its 200-day average ($122.53), which cuts against the call.",
+    "invalidation": "A close above $154.70, 14% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-22",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "VTR",
+    "name": "Ventas, Inc.",
+    "lean": "down",
+    "score": -0.367,
+    "conviction": "Low",
+    "price": 86.55,
+    "etf_price": 42.46,
+    "reasons": [
+     "137.4\u00d7 forward earnings, pricier than the group median of 42.1\u00d7",
+     "Lagging its sector group: +11% over the past year (excluding the last month) vs. a median of +12%"
+    ],
+    "risk": "Faster growth than its group: revenue +22% year over year vs. a median of +12%, which cuts against the call.",
+    "invalidation": "A close above $86.62, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
