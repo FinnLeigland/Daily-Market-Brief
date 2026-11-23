@@ -5780,6 +5780,124 @@
     "invalidation": "A close above $86.62, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-11-23": [
+   {
+    "date": "2026-11-23",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "AMAT",
+    "name": "Applied Materials, Inc.",
+    "lean": "down",
+    "score": -0.148,
+    "conviction": "Low",
+    "price": 346.87,
+    "etf_price": 162.38,
+    "reasons": [
+     "Trading 22% below its 200-day average ($446.11)",
+     "Faster growth than its group: revenue +53% year over year vs. a median of +49%",
+     "Leading its sector group: +72% over the past year (excluding the last month) vs. a median of +37%"
+    ],
+    "risk": "14.1\u00d7 forward earnings, cheaper than the group median of 18.2\u00d7, which cuts against the call.",
+    "invalidation": "A close above $446.11, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-23",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "MSFT",
+    "name": "Microsoft Corporation",
+    "lean": "up",
+    "score": 0.099,
+    "conviction": "Low",
+    "price": 492.5,
+    "etf_price": 54.88,
+    "reasons": [
+     "Trading 11% above its 200-day average ($442.40)",
+     "20.3\u00d7 forward earnings, pricier than the group median of 20.3\u00d7"
+    ],
+    "risk": "Slower growth than its group: revenue +19% year over year vs. a median of +26%, which cuts against the call.",
+    "invalidation": "A close below $442.40, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-23",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "JPM",
+    "name": "JPMorgan Chase & Co.",
+    "lean": "up",
+    "score": 0.065,
+    "conviction": "Low",
+    "price": 316.66,
+    "etf_price": 55.65,
+    "reasons": [
+     "12.4\u00d7 forward earnings, cheaper than the group median of 12.5\u00d7",
+     "Lagging its sector group: +13% over the past year (excluding the last month) vs. a median of +14%"
+    ],
+    "risk": "Trading 2% below its 200-day average ($322.88), which cuts against the call.",
+    "invalidation": "A close below $284.97, 10% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-23",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "LOW",
+    "name": "Lowe's Companies, Inc.",
+    "lean": "down",
+    "score": -0.128,
+    "conviction": "Low",
+    "price": 226.14,
+    "etf_price": 116.93,
+    "reasons": [
+     "Lagging its sector group: -11% over the past year (excluding the last month) vs. a median of -1%",
+     "More analyst upside than its group: the average target is +10% from here vs. a median of +8%"
+    ],
+    "risk": "Faster growth than its group: revenue +9% year over year vs. a median of +5%, which cuts against the call.",
+    "invalidation": "A close above $255.30, 13% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-23",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "CVX",
+    "name": "Chevron Corporation",
+    "lean": "down",
+    "score": -0.27,
+    "conviction": "Low",
+    "price": 206.17,
+    "etf_price": 59.87,
+    "reasons": [
+     "Lagging its sector group: +59% over the past year (excluding the last month) vs. a median of +68%",
+     "Less analyst upside than its group: the average target is +18% from here vs. a median of +21%"
+    ],
+    "risk": "Trading 7% above its 200-day average ($193.46), which cuts against the call.",
+    "invalidation": "A close above $228.32, 11% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-23",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "PLD",
+    "name": "Prologis, Inc.",
+    "lean": "down",
+    "score": -0.577,
+    "conviction": "Medium",
+    "price": 125.14,
+    "etf_price": 42.9,
+    "reasons": [
+     "Lagging its sector group: +6% over the past year (excluding the last month) vs. a median of +12%",
+     "Trading 8% below its 200-day average ($136.19)",
+     "Slower growth than its group: revenue +10% year over year vs. a median of +12%"
+    ],
+    "risk": "34.7\u00d7 forward earnings, cheaper than the group median of 42.8\u00d7, which cuts against the call.",
+    "invalidation": "A close above $136.19, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
