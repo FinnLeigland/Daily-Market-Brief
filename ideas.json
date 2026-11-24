@@ -5898,6 +5898,124 @@
     "invalidation": "A close above $136.19, the 200-day moving average.",
     "ai": null
    }
+  ],
+  "2026-11-24": [
+   {
+    "date": "2026-11-24",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "INTC",
+    "name": "Intel Corporation",
+    "lean": "down",
+    "score": -0.18,
+    "conviction": "Low",
+    "price": 54.8,
+    "etf_price": 157.1,
+    "reasons": [
+     "Trading 37% below its 200-day average ($87.62)",
+     "Slower growth than its group: revenue +21% year over year vs. a median of +49%",
+     "30.6\u00d7 forward earnings, pricier than the group median of 18.0\u00d7"
+    ],
+    "risk": "Leading its sector group: +162% over the past year (excluding the last month) vs. a median of +38%, which cuts against the call.",
+    "invalidation": "A close above $75.44, 38% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-24",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "ORCL",
+    "name": "Oracle Corporation",
+    "lean": "down",
+    "score": -0.663,
+    "conviction": "Medium",
+    "price": 109.51,
+    "etf_price": 53.74,
+    "reasons": [
+     "Lagging its sector group: -36% over the past year (excluding the last month) vs. a median of +14%",
+     "Trading 28% below its 200-day average ($151.83)",
+     "Faster growth than its group: revenue +30% year over year vs. a median of +26%"
+    ],
+    "risk": "More analyst upside than its group: the average target is +116% from here vs. a median of +38%, which cuts against the call.",
+    "invalidation": "A close above $138.58, 27% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-24",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "WFC",
+    "name": "Wells Fargo & Company",
+    "lean": "down",
+    "score": -0.455,
+    "conviction": "Medium",
+    "price": 81.21,
+    "etf_price": 56.12,
+    "reasons": [
+     "Lagging its sector group: +1% over the past year (excluding the last month) vs. a median of +14%",
+     "Slower growth than its group: revenue +0% year over year vs. a median of +11%"
+    ],
+    "risk": "10.2\u00d7 forward earnings, cheaper than the group median of 12.4\u00d7, which cuts against the call.",
+    "invalidation": "A close above $82.18, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-24",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "HD",
+    "name": "The Home Depot, Inc.",
+    "lean": "down",
+    "score": -0.051,
+    "conviction": "Low",
+    "price": 353.77,
+    "etf_price": 117.72,
+    "reasons": [
+     "Lagging its sector group: -4% over the past year (excluding the last month) vs. a median of -2%",
+     "Less analyst upside than its group: the average target is +6% from here vs. a median of +7%"
+    ],
+    "risk": "Trading 8% above its 200-day average ($328.35), which cuts against the call.",
+    "invalidation": "A close above $395.58, 12% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-24",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "EOG",
+    "name": "EOG Resources, Inc.",
+    "lean": "down",
+    "score": -0.188,
+    "conviction": "Low",
+    "price": 146.64,
+    "etf_price": 60.43,
+    "reasons": [
+     "Lagging its sector group: +58% over the past year (excluding the last month) vs. a median of +69%",
+     "Less analyst upside than its group: the average target is +14% from here vs. a median of +19%"
+    ],
+    "risk": "8.6\u00d7 forward earnings, cheaper than the group median of 12.2\u00d7, which cuts against the call.",
+    "invalidation": "A close above $166.01, 13% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-24",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "DLR",
+    "name": "Digital Realty Trust, Inc.",
+    "lean": "up",
+    "score": 0.01,
+    "conviction": "Low",
+    "price": 165.31,
+    "etf_price": 43.44,
+    "reasons": [
+     "More analyst upside than its group: the average target is +36% from here vs. a median of +13%",
+     "57.1\u00d7 forward earnings, pricier than the group median of 42.9\u00d7"
+    ],
+    "risk": "Trading 10% below its 200-day average ($182.77), which cuts against the call.",
+    "invalidation": "A close below $144.58, 13% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   }
   ]
  }
 }
