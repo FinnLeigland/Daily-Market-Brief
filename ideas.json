@@ -6016,6 +6016,126 @@
     "invalidation": "A close below $144.58, 13% from the pick (about 1.5 typical monthly moves).",
     "ai": null
    }
+  ],
+  "2026-11-25": [
+   {
+    "date": "2026-11-25",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "AVGO",
+    "name": "Broadcom Inc.",
+    "lean": "down",
+    "score": -0.272,
+    "conviction": "Low",
+    "price": 298.21,
+    "etf_price": 155.23,
+    "reasons": [
+     "Lagging its sector group: -9% over the past year (excluding the last month) vs. a median of +37%",
+     "Trading 19% below its 200-day average ($366.42)"
+    ],
+    "risk": "15.4\u00d7 forward earnings, cheaper than the group median of 17.9\u00d7, which cuts against the call.",
+    "invalidation": "A close above $361.74, 21% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-25",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "META",
+    "name": "Meta Platforms, Inc.",
+    "lean": "down",
+    "score": -0.152,
+    "conviction": "Low",
+    "price": 604.78,
+    "etf_price": 53.43,
+    "reasons": [
+     "Lagging its sector group: +2% over the past year (excluding the last month) vs. a median of +13%",
+     "Faster growth than its group: revenue +26% year over year vs. a median of +26%",
+     "More analyst upside than its group: the average target is +39% from here vs. a median of +36%"
+    ],
+    "risk": "16.9\u00d7 forward earnings, cheaper than the group median of 20.2\u00d7, which cuts against the call.",
+    "invalidation": "A close above $626.83, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-25",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "BRK-B",
+    "name": "Berkshire Hathaway Inc.",
+    "lean": "down",
+    "score": -0.358,
+    "conviction": "Low",
+    "price": 579.72,
+    "etf_price": 56.58,
+    "reasons": [
+     "Less analyst upside than its group: the average target is -3% from here vs. a median of +19%",
+     "25.4\u00d7 forward earnings, pricier than the group median of 12.4\u00d7",
+     "Lagging its sector group: +7% over the past year (excluding the last month) vs. a median of +14%"
+    ],
+    "risk": "Trading 15% above its 200-day average ($503.68), which cuts against the call.",
+    "invalidation": "A close above $617.68, 7% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-25",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "MAR",
+    "name": "Marriott International, Inc.",
+    "lean": "up",
+    "score": 0.884,
+    "conviction": "High",
+    "price": 416.79,
+    "etf_price": 117.69,
+    "reasons": [
+     "Leading its sector group: +33% over the past year (excluding the last month) vs. a median of -3%",
+     "Trading 15% above its 200-day average ($363.37)",
+     "Faster growth than its group: revenue +11% year over year vs. a median of +5%"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +1% from here vs. a median of +6%, which cuts against the call.",
+    "invalidation": "A close below $368.43, 12% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-25",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "VLO",
+    "name": "Valero Energy Corporation",
+    "lean": "up",
+    "score": 0.979,
+    "conviction": "High",
+    "price": 323.79,
+    "etf_price": 61.02,
+    "reasons": [
+     "Leading its sector group: +125% over the past year (excluding the last month) vs. a median of +65%",
+     "More analyst upside than its group: the average target is +28% from here vs. a median of +19%",
+     "6.3\u00d7 forward earnings, cheaper than the group median of 12.3\u00d7"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close below $298.64, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-25",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "WELL",
+    "name": "Welltower Inc.",
+    "lean": "up",
+    "score": 0.251,
+    "conviction": "Low",
+    "price": 246.45,
+    "etf_price": 43.92,
+    "reasons": [
+     "Trading 11% above its 200-day average ($222.08)",
+     "Faster growth than its group: revenue +38% year over year vs. a median of +12%"
+    ],
+    "risk": "Less analyst upside than its group: the average target is +8% from here vs. a median of +12%, which cuts against the call.",
+    "invalidation": "A close below $222.08, the 200-day moving average.",
+    "ai": null
+   }
   ]
  }
 }
