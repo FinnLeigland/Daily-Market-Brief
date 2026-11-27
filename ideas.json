@@ -6257,6 +6257,127 @@
     "invalidation": "A close below $862.39, 12% from the pick (about 1.5 typical monthly moves).",
     "ai": null
    }
+  ],
+  "2026-11-27": [
+   {
+    "date": "2026-11-27",
+    "sector": "Technology",
+    "etf": "XLK",
+    "ticker": "MU",
+    "name": "Micron Technology, Inc.",
+    "lean": "up",
+    "score": 1.592,
+    "conviction": "High",
+    "price": 646.95,
+    "etf_price": 160.15,
+    "reasons": [
+     "Leading its sector group: +338% over the past year (excluding the last month) vs. a median of +36%",
+     "Faster growth than its group: revenue +379% year over year vs. a median of +49%",
+     "More analyst upside than its group: the average target is +136% from here vs. a median of +55%"
+    ],
+    "risk": "Trading 17% below its 200-day average ($777.49), which cuts against the call.",
+    "invalidation": "A close below $401.70, 38% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-27",
+    "sector": "Artificial Intelligence",
+    "etf": "AIQ",
+    "ticker": "TSLA",
+    "name": "Tesla, Inc.",
+    "lean": "down",
+    "score": -0.841,
+    "conviction": "High",
+    "price": 400.0,
+    "etf_price": 55.48,
+    "reasons": [
+     "185.3\u00d7 forward earnings, pricier than the group median of 20.4\u00d7",
+     "Lagging its sector group: -4% over the past year (excluding the last month) vs. a median of +12%",
+     "Slower growth than its group: revenue -0% year over year vs. a median of +26%"
+    ],
+    "risk": "Trading 5% above its 200-day average ($381.00), which cuts against the call.",
+    "invalidation": "A close above $481.83, 20% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-27",
+    "sector": "Financials",
+    "etf": "XLF",
+    "ticker": "AXP",
+    "name": "American Express Company",
+    "lean": "down",
+    "score": -0.705,
+    "conviction": "Medium",
+    "price": 316.4,
+    "etf_price": 57.16,
+    "reasons": [
+     "Lagging its sector group: -11% over the past year (excluding the last month) vs. a median of +13%",
+     "Trading 1% below its 200-day average ($320.91)",
+     "Less analyst upside than its group: the average target is +15% from here vs. a median of +17%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close above $320.91, the 200-day moving average.",
+    "ai": null
+   },
+   {
+    "date": "2026-11-27",
+    "sector": "Consumer Discretionary",
+    "etf": "XLY",
+    "ticker": "TSLA",
+    "name": "Tesla, Inc.",
+    "lean": "down",
+    "score": -0.655,
+    "conviction": "Medium",
+    "price": 400.0,
+    "etf_price": 119.97,
+    "reasons": [
+     "185.3\u00d7 forward earnings, pricier than the group median of 24.2\u00d7",
+     "Slower growth than its group: revenue -0% year over year vs. a median of +5%",
+     "Leading its sector group: -4% over the past year (excluding the last month) vs. a median of -5%"
+    ],
+    "risk": "All signals point the same way, which can indicate a crowded trade that is prone to sharp reversals.",
+    "invalidation": "A close above $481.83, 20% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-27",
+    "sector": "Energy",
+    "etf": "XLE",
+    "ticker": "TRGP",
+    "name": "Targa Resources Corp.",
+    "lean": "down",
+    "score": -0.227,
+    "conviction": "Low",
+    "price": 280.55,
+    "etf_price": 61.67,
+    "reasons": [
+     "22.7\u00d7 forward earnings, pricier than the group median of 12.4\u00d7",
+     "Trading 6% above its 200-day average ($265.76)"
+    ],
+    "risk": "Leading its sector group: +81% over the past year (excluding the last month) vs. a median of +69%, which cuts against the call.",
+    "invalidation": "A close above $316.95, 13% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   },
+   {
+    "date": "2026-11-27",
+    "sector": "Real Estate",
+    "etf": "XLRE",
+    "ticker": "O",
+    "name": "Realty Income Corporation",
+    "lean": "down",
+    "score": -0.44,
+    "conviction": "Medium",
+    "price": 60.51,
+    "etf_price": 44.14,
+    "reasons": [
+     "Lagging its sector group: +4% over the past year (excluding the last month) vs. a median of +9%",
+     "Less analyst upside than its group: the average target is +5% from here vs. a median of +11%",
+     "Slower growth than its group: revenue +10% year over year vs. a median of +12%"
+    ],
+    "risk": "39.0\u00d7 forward earnings, cheaper than the group median of 43.3\u00d7, which cuts against the call.",
+    "invalidation": "A close above $64.96, 7% from the pick (about 1.5 typical monthly moves).",
+    "ai": null
+   }
   ]
  }
 }
