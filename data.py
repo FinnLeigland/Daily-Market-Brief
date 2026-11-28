@@ -142,15 +142,38 @@ def _chart_one(ticker: str, period: str, interval: str, field: str = "adjclose")
             if (r.get("meta") or {}).get("dataGranularity", interval) != interval:
                 return None  # Yahoo sent coarser bars than asked for: let yfinance handle this one
             ind = r.get("indicators") or {}
-            if field == "volume":
-                values = (ind.get("quote") or [{}])[0].get("volume")
-            else:
-                values = (ind.get("adjclose") or [{}])[0].get("adjclose") or (ind.get("quote") or [{}])[0].get("close")
-            if not values:
-                return None
             tz = (r.get("meta") or {}).get("exchangeTimezoneName") or "America/New_York"
             idx = pd.to_datetime(r["timestamp"], unit="s", utc=True).tz_convert(tz).tz_localize(None).normalize()
-            out = pd.Series(pd.to_numeric(values, errors="coerce"), index=idx, name=ticker).dropna()
+
+            def col(values, idx=idx) -> pd.Series:
+                return pd.Series(pd.to_numeric(values, errors="coerce"), index=idx, dtype=float)
+
+            quote = (ind.get("quote") or [{}])[0]
+            if field == "volume":
+                if not quote.get("volume"):
+                    return None
+                out = col(quote["volume"])
+            else:
+                close = col(quote.get("close") or [None] * len(idx))
+                # The newest bar's close is often blank for hours after the bell, while the summary already has the
+                # price; use it, but only when it's stamped on that bar's own trading day.
+                meta = r.get("meta") or {}
+                price, at = meta.get("regularMarketPrice"), meta.get("regularMarketTime")
+                if len(close) and pd.isna(close.iloc[-1]) and price and at:
+                    day = pd.Timestamp(at, unit="s", tz="UTC").tz_convert(tz).tz_localize(None).normalize()
+                    if day == close.index[-1]:
+                        close.iloc[-1] = float(price)
+                adj = (ind.get("adjclose") or [{}])[0].get("adjclose")
+                if adj:
+                    # Yahoo leaves the newest bar's adjusted close blank until its overnight run; use that day's close,
+                    # scaled by the latest adjustment ratio (1 unless a dividend or split just happened).
+                    adj = col(adj)
+                    out = adj.fillna(close * (adj / close).ffill())
+                else:
+                    out = close
+            out = out.rename(ticker).dropna()
+            if out.empty:
+                return None
             return out[~out.index.duplicated(keep="last")]
         except Exception:
             continue
