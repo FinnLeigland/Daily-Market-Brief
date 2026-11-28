@@ -358,3 +358,33 @@ def test_market_trend_filter_goes_to_cash_below_the_average():
     assert inm.iloc[-3:].eq(0).all()  # deep in the decline: out of the market
     assert strat.iloc[-3:].round(4).eq(0.003).all()  # earning T-bills while out
     assert strat.sum() > bh.sum()  # sidestepping the decline beats holding through it
+
+
+def test_sector_scoreboard_ranks_and_rank_changes():
+    idx = pd.bdate_range(end="2026-10-09", periods=300)
+    n = len(idx)
+    t = np.arange(n)
+    # A climbs steadily; B led early then stalled; C lags; the benchmark is flat
+    prices = pd.DataFrame(
+        {
+            "A": 100 * 1.003**t,
+            "B": np.where(t < n - 30, 100 * 1.004**t, 100 * 1.004 ** (n - 30)),
+            "C": 100 * 0.999**t,
+            "SPY": np.full(n, 100.0),
+        },
+        index=idx,
+    )
+    sb = A.sector_scoreboard(prices, ["A", "B", "C"], "SPY")
+    assert list(sb.index) == ["A", "B", "C"]
+    assert sb.loc["A", "rank_change"] == 1 and sb.loc["B", "rank_change"] == -1  # A overtook B this month
+    assert sb.loc["C", "3M"] < 0 < sb.loc["A", "3M"]
+    assert sb.loc["A", "vs_200d"] > 0 > sb.loc["C", "vs_200d"]
+    expected_1m = (prices["A"].iloc[-1] / prices["A"].iloc[-22] - 1) * 100
+    assert abs(sb.loc["A", "1M"] - expected_1m) < 1e-9  # benchmark is flat, so relative = absolute
+
+
+def test_relative_index_starts_at_100():
+    idx = pd.bdate_range(end="2026-10-09", periods=200)
+    prices = pd.DataFrame({"A": np.linspace(100, 120, 200), "SPY": np.linspace(100, 110, 200)}, index=idx)
+    ri = A.relative_index(prices, ["A"], "SPY", days=126)
+    assert ri["A"].iloc[0] == 100 and ri["A"].iloc[-1] > 100 and len(ri) == 127

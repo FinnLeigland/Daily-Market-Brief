@@ -39,6 +39,11 @@ def _jobs():
 
     yield ideas.inputs  # the daily screen: sector holdings, prices and company data
     yield lambda: ideas._backtest(tuple((g, tuple(ts)) for g, ts in ideas._candidates().items()))
+    yield data.get_fomc_dates
+    yield data.get_bls_calendar
+    yield lambda: data.next_earnings_many(
+        sorted({t for ts in ideas._candidates().values() for t in ts}), ideas._today()
+    )
     yield _stock_lab
     yield _micro
 
